@@ -1,0 +1,61 @@
+<!--pages/detail/detail.wxml-->
+<view class="campusDetail">
+    <view class="header">
+        <view class="backIcon">
+            <image class="backImg" src="{{backIcon}}" bindtap="gotoBack"> 
+            </image>
+        </view>
+        <view class="header-title">{{campusName}}</view>
+    </view>
+    <view class="menuItems">
+        <view class="menu-item">
+            <text>迎新</text>
+        </view>
+        <view class="menu-item">
+            <text>热门景点</text>
+        </view>
+        <view class="menu-item-select">
+            <Select prop-array='{{toolBarList}}'></Select>
+        </view>
+        <view class="menu-item-select">
+            <Select prop-array='{{colleageList}}'></Select>
+        </view>
+        <view class="menu-item-select">
+            <Select prop-array='{{publicList}}'></Select>
+        </view>
+    </view>
+    <!--下面的是展示地图的部分-->
+    <view class="container">
+        <map
+            id="myMap"
+            longitude="{{longitude}}" 
+            latitude="{{latitude}}"
+            style="width: 100%; height: 100%"
+            bindmarkertap="markerTap"
+            bindlabeltap="labeltap"
+            markers="{{markers}}"
+            scale="16"
+        >
+        </map>
+    </view>
+
+    <!--搜索框-->
+    <view class="searchInput">
+        <input class="weui-input" placeholder="请输入查询关键词" />
+        <button class="search-btn">
+            <span class='btn-text'>查询</span>
+        </button>
+    </view>
+
+    <!--右侧图片的显示，包含开学季和旅游路线-->
+    <view class="rightContainer">
+        <view class="pic-study">
+            <image class="Img" src="{{picStudy}}">
+            </image>
+        </view>
+        <view class="pic-path">
+            <image class="pathImg" src="{{picPath}}">
+            </image>
+        </view>
+    </view>
+</view>

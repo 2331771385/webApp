@@ -1,0 +1,58 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="imgBox">
+    <image class="Img" src="{{src}}">
+    </image>
+  </view>
+  <view class="swiperBox">
+    <swiper class="swiper" indicator-dots="{{indicatorDots}}"
+      autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+      <block wx:for="{{backgroundItem}}" wx:key="*this">
+        <swiper-item>
+          <view>
+            <image class="swiper-item-{{item.id}}" src="{{item.value}}">
+            </image>
+          </view>
+        </swiper-item>
+      </block>
+    </swiper>
+  </view>
+  <view class="indexBody">
+    <image class="back-img" src="{{backgroundImg}}"></image>
+    <view class="text">
+      <text>{{text}}</text>
+      <p class="navig-link" bindtap="gotoDetail">详情</p>
+    </view>
+    <view class="flex-imgs">
+      <block wx:for="{{imgs}}" wx:key="*this">
+        <view class="item-block" data-set="{{item}}">
+          <image class="item-img" src="{{item.value}}">
+          </image>
+          <p class="item-label">{{item.label}}</p>
+        </view>
+      </block>
+    </view>
+    <view class="flex-imgs">
+      <block wx:for="{{imgs1}}" wx:key="*this">
+        <view class="item-block" data-set="{{item}}" bindtap="goToOtherDetail">
+          <image class="item-img" src="{{item.value}}">
+          </image>
+          <p class="item-label">{{item.label}}</p>
+        </view>
+      </block>
+    </view>
+    <view class="flex-imgs" style="justify-content: center">
+      <block wx:for="{{imgs2}}" wx:key="*this">
+        <view class="item-block2" data-set="{{item}}">
+          <image class="item-img" src="{{item.value}}">
+          </image>
+          <p class="item-label">{{item.label}}</p>
+        </view>
+      </block>
+    </view>
+  </view>
+  <view class="footer">
+      <p>版权所有：</p>
+      <p class="devide" bindtap="goToSDU">山东大学 2021</p>
+  </view>
+</view>

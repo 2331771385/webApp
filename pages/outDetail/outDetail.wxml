@@ -1,0 +1,2 @@
+<!--pages/outDetail.wxml-->
+<web-view src="https://www.sdu.edu.cn/sdgk/sdjj.htm"></web-view>

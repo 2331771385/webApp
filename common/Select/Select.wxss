@@ -1,0 +1,54 @@
+/* common/Select/Select.wxss */
+.com-selectBox{
+    width: 150rpx;
+    margin-top: 10rpx;
+}
+.com-sContent{
+    font-size: 16px;
+    position: relative;
+    height: 30px;
+    line-height: 30px;
+}
+.com-sImg{
+    position: absolute;
+    right: 6rpx;
+    top: 16rpx;
+    width: 24rpx;
+    height: 24rpx;
+    color: #fff;
+    transition: all .3s ease;
+}
+.com-sTxt{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding:0 6px 0 6px;
+    font-size: 14px;
+    color: #fff;
+}
+.com-sList{
+    background: #9b0d14;
+    width: inherit;
+    position: absolute;
+    border: 1px solid #e2e2e2;
+    border-top: none;
+    box-sizing: border-box;
+    z-index: 3;
+    margin-top: 10rpx;
+    min-height: 120rpx;
+    overflow: auto;
+}
+.com-sItem{
+    height: 30px;
+    line-height: 30px;
+    padding: 0 6px;
+    text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 14px;
+    color: #fff;
+}
+.com-sItem:first-child{
+    border-top: none;
+}

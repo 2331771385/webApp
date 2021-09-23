@@ -1,0 +1,90 @@
+// index.js    js文件存放的是页面逻辑
+// 获取应用实例
+const app = getApp();
+Page({
+  data: {
+    src: '../../img/banner-top.png',
+    backgroundImg: '../../img/index-bottom.png',
+    text: '山东大学是中国近代高等教育的起源性大学，其医学学科起源于1864年，开启近代中国高等医学教育之先河；其主体是1901年创办的山东大学堂，是继京师大学堂之后中国创办的第二所国立大学，也是中国第一所按章程办学的大学。学校规模宏大，实力雄厚，总占地面积8000余亩， 形成了一校三地（济南、威海、青岛）的办学格局。',
+    indicatorDots: true,
+    vertical: false,
+    autoplay: true,
+    interval: 2000,
+    duration: 500,
+    backgroundItem: [
+      {
+        id: 1,
+        value: '../../img/SDUlogo.png'
+      },
+      {
+        id: 2,
+        value: '../../img/zhongxin1.png'
+      }
+    ],
+    imgs1: [
+      {
+        id: 2,
+        label: '洪家楼校区',
+        value: '../../img/pic-honglou.jpg'
+      },
+      {
+        id: 6,
+        label: '软件园校区',
+        value: '../../img/pic-ruanjian.jpg'
+      },
+      {
+        id: 4,
+        label: '兴隆山校区',
+        value: '../../img/pic-xinglongshan.jpg'
+      },
+    ],
+    imgs: [
+      {
+        id: 1,
+        label: '中心校区',
+        value: '../../img/pic-zhongxin.jpg'
+      },
+      {
+        id: 3,
+        label: '趵突泉校区',
+        value: '../../img/pic-baotuquan.jpg'
+      },
+      {
+        id: 5,
+        label: '千佛山校区',
+        value: '../../img/pic-qianfoshan.jpg'
+      }
+    ],
+    imgs2: [
+      {
+        id: 8,
+        label: '威海校区',
+        value: '../../img/pic-weihai.jpg'
+      },
+      {
+        id: 7,
+        label: '青岛校区',
+        value: '../../img/pic-qingdao.jpg'
+      }
+    ]
+  },
+
+  onLoad() {
+  },
+  goToSDU() {
+    wx.navigateTo({
+      url: '/pages/out/out'
+    })
+  },
+  gotoDetail() {
+    wx.navigateTo({
+      url: '/pages/outDetail/outDetail'
+    })
+  },
+  goToOtherDetail(e){
+    let item = e.currentTarget.dataset.set; // 得到当前点击的对象
+    wx.navigateTo({
+      url: `/pages/detail/detail?campusId=${item.id}&campusName=${item.label}`
+    })
+  }
+})
