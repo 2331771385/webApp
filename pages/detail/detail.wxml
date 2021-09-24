@@ -80,10 +80,15 @@
                 </span>
             </view>
             <view class="shareItems">
-                <image class="shareImg" src="cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/shoucang.png" >
+                <image class="shareImg" src="{{isClick ? shoucang : notShouCang}}" 
+                    bindtap="haveSave"
+                >
                     
                 </image>
-                <span class="shareText">
+                <span wx:if="{{isClick}}" class="isShareText">
+                    已收藏
+                </span>
+                <span wx:else class="shareText">
                     收藏
                 </span>
             </view>
