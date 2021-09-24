@@ -1,9 +1,15 @@
+// var amapFile = require('../../libs/amap-wx.js');  //引入高德js
+// var config = require('../../libs/config.js'); //引用我们的配置文件
+// var map = require('https://webapi.amap.com/ui/1.1/main.js');
+// var AMap = require('https://webapi.amap.com/maps?v=1.4.15&key=fc80ab32a75113402df0a426957c25e3')
+
 const app = getApp();
 Page({
   data: {
+    keyWord: '',
     campusId: '',
     campusName: '',
-    backIcon: '../../img/back1.png',
+    backIcon: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/back1.png',
     toolBarList: [
       {
         id: 0,
@@ -150,32 +156,38 @@ Page({
       {
         id: 1,
         longitude: 117.060109, // 经度
-        latitude: 36.675668
+        latitude: 36.675668,
+        markerImg: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/3d-zhongxin3.png'
       },
       {
         id: 6,
         longitude: 117.143552,
-        latitude: 36.666811
+        latitude: 36.666811,
+        markerImg: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/3d-software.png'
       },
       {
         id: 2,
         longitude: 117.068195,
-        latitude: 36.687395
+        latitude: 36.687395,
+        markerImg: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/3d-hongjialou1.png'
       },
       {
         id: 5,
         longitude: 117.028551,
-        latitude: 36.651162
+        latitude: 36.651162,
+        markerImg: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/3d-qianfoshan3.png'
       },
       {
         id: 4,
         longitude: 117.050303,
-        latitude: 36.601063
+        latitude: 36.601063,
+        markerImg: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/3d-xinglongshan.png'
       },
       {
         id: 3,
         longitude: 117.018274,
-        latitude: 36.652161
+        latitude: 36.652161,
+        markerImg: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/3d-baotuquan3.png'
       },
       {
         id: 9,
@@ -185,18 +197,22 @@ Page({
       {
         id: 7,
         longitude: 120.688292,
-        latitude: 36.365274
+        latitude: 36.365274,
+        markerImg: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/3d-qingdao3.png'
       },
       {
         id: 8,
         longitude: 122.058225,
-        latitude: 37.532313
+        latitude: 37.532313,
+        markerImg: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/3d-weihai5.png'
       }
     ],
+
+    marker: '',
     longitude: null, //经度
     latitude: null,
-    picStudy: '../../img/study.png',
-    picPath: '../../img/path.png'
+    picStudy: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/study.png',
+    picPath: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/path.png'
   },
   /**
    * 
@@ -216,10 +232,21 @@ Page({
       if (item.id == campusId) {
         this.setData({
           longitude: item.longitude,
-          latitude: item.latitude
+          latitude: item.latitude,
+          marker: item.markerImg
         })
       }
     });
+
+    // var that = this;
+    // var key = config.Config.key;
+    // var myAmapFun = new amapFile.AMapWX({ key: key });
+    // // 获得精准定位
+    // myAmapFun.getRegeo({
+    //   success:function(data) {
+    //     console.log(data);
+    //   }
+    // })
   },
 
   /**
@@ -243,5 +270,39 @@ Page({
     */
   labeltap(e) {
     console.log('点击label的时候', e);
+  },
+
+  /**
+   * 监听输入框中输入的数据
+   */
+  inputKey(e) {
+    this.setData({
+      keyWord: e.detail.value
+    })
+  },
+
+  /**
+   * 对输入的内容进行搜索
+   */
+  getSearchResult() {
+    var reqTask = wx.request({
+      url: 'http://152.136.208.17:8096/poi/getCampusPoiList',
+      data: {
+        token: '8663fa1c6a884516839bc168584879ccVA8o5v',
+        ID: this.data.campusId,
+        keyWord: this.data.keyWord
+      },
+      header: {
+        'content-type':'application/json'
+      },
+      method: 'POST',
+      success: (result)=>{
+        console.log(result);
+      },
+      fail: (err)=>{
+        console.log(err);
+      },
+      complete: ()=>{}
+    });
   }
 })

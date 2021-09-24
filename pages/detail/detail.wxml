@@ -36,13 +36,15 @@
             markers="{{markers}}"
             scale="16"
         >
+            <!--覆盖在地图上面的图片-->
+            
         </map>
     </view>
 
     <!--搜索框-->
     <view class="searchInput">
-        <input class="weui-input" placeholder="请输入查询关键词" />
-        <button class="search-btn">
+        <input class="weui-input" bindinput="inputKey" placeholder="请输入查询关键词"  />
+        <button class="search-btn" bindtap="getSearchResult">
             <span class='btn-text'>查询</span>
         </button>
     </view>
@@ -56,6 +58,52 @@
         <view class="pic-path">
             <image class="pathImg" src="{{picPath}}">
             </image>
+        </view>
+    </view>
+
+    <view class="detailInfo">
+        <view class="content">
+            <view class="title">
+                <view class="titleInfo">软件学院报到点</view>
+                <view class="subTitle">距你100米</view>
+            </view>
+            <view class='descript'>
+                <text>软件园校区迎新点位于教学楼6区架空层下面，返校学生由南门（2号岗）入校，由兴软办牵头负责。</text>
+            </view>
+        </view>
+        <view class='share'>
+            <view class="shareItems">
+                <image class="shareImg" src="cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/share.png" >
+                </image>
+                <span class="shareText">
+                    分享
+                </span>
+            </view>
+            <view class="shareItems">
+                <image class="shareImg" src="cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/shoucang.png" >
+                    
+                </image>
+                <span class="shareText">
+                    收藏
+                </span>
+            </view>
+            <view class="shareItems">
+                <image class="shareImg" src="cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/shijing.png" >
+                    
+                </image>
+                <span class="shareText">
+                    实景
+                </span>
+            </view>
+            <view class="shareItems">
+                <image class="shareImg" src="cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/go.png" >
+                    
+                </image>
+                <span class="shareText">
+                    前往
+                </span>
+            </view>
+
         </view>
     </view>
 </view>
