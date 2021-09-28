@@ -209,7 +209,15 @@ Page({
     latitude: null,
     picStudy: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/study.png',
     picPath: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/path.png',
+<<<<<<< HEAD
     dataList: [], // 调用接口返回的所有的数组
+=======
+    isClick: false,
+    shoucang: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/myShoucang.png',
+    notShouCang: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/shoucang.png',
+    jobStorage: [],
+    job: [],
+>>>>>>> 0af22d8c214668b29e249ceab6a30be0723dd4ea
   },
   /**
    * 
@@ -222,8 +230,8 @@ Page({
     let campusId = options.campusId;
     let campusName = options.campusName;
     this.setData({
-      campusId:campusId,
-      campusName:campusName
+      campusId: campusId,
+      campusName: campusName
     });
     this.data.lngAndLatList.forEach(item => {
       if (item.id == campusId) {
@@ -268,6 +276,31 @@ Page({
   },
 
   /**
+ * 当前位置点的收藏功能
+ * 参考地址：https://www.jb51.net/article/141878.htm
+ */
+  haveSave(e) {
+    if (!this.data.isClick == true) {
+      let jobData = this.data.jobStorage;
+      jobData.push({
+        jobId: jobData.length,
+        id: this.data.job.id
+      });
+      wx.setStorageSync('jobData', jobData);//设置缓存
+      wx.showToast({
+        title: '已收藏',
+      })
+    } else {
+      wx.showToast({
+        title: '取消收藏'
+      })
+    }
+    this.setData({
+      isClick: !this.data.isClick
+    })
+  },
+
+  /**
    * 点击事件，返回上一页
    */
   gotoBack() {
@@ -283,9 +316,9 @@ Page({
     console.log('点击标记点', e);
   },
 
-   /**
-    * 点击label的时候触发
-    */
+  /**
+   * 点击label的时候触发
+   */
   labeltap(e) {
     console.log('点击label的时候', e);
   },
@@ -303,6 +336,7 @@ Page({
    * 对输入的内容进行搜索
    */
   getSearchResult() {
+<<<<<<< HEAD
     this.setData({
       token: app.globalData.token
     })
@@ -355,4 +389,55 @@ Page({
       url: '/pages/buildDetail/buildDetail'
     })
    }
+=======
+    var that = this;
+    wx.login({
+      success: function (res) {
+        var code = res.code;
+        if (code) {
+          wx.request({
+            url: 'http://152.136.208.17:8096/poi/getCampusPoiList',
+            data: {
+              token: code,
+              ID: that.data.campusId,
+              keyWord: that.data.keyWord
+            },
+            header: {
+              'content-type':'application/json'
+            },
+            method: 'POST',
+            success: (result)=>{
+              console.log('这是正确的结果');
+              console.log(result);
+            },
+            fail: (err)=>{
+              console.log('这是错误的结果');
+              console.log(err);
+            },
+            complete: ()=>{}
+          });
+        }
+      }
+    })
+    // var reqTask = wx.request({
+    //   url: 'http://152.136.208.17:8096/poi/getCampusPoiList',
+    //   data: {
+    //     token: '886a',
+    //     ID: this.data.campusId,
+    //     keyWord: this.data.keyWord
+    //   },
+    //   header: {
+    //     'content-type':'application/json'
+    //   },
+    //   method: 'POST',
+    //   success: (result)=>{
+    //     console.log(result);
+    //   },
+    //   fail: (err)=>{
+    //     console.log(err);
+    //   },
+    //   complete: ()=>{}
+    // });
+  }
+>>>>>>> 0af22d8c214668b29e249ceab6a30be0723dd4ea
 })

@@ -166,3 +166,9 @@
     font-size: 24rpx;
     display: block;
 }
+.isShareText {
+    display: inline-block;
+    font-size: 24rpx;
+    display: block;
+    color: #17e3d4;
+}
