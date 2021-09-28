@@ -70,6 +70,33 @@ Page({
   },
 
   onLoad() {
+    /**
+     * 在页面初始化的时候，获得页面中的token
+     * 并且将token存储在localStorage中
+     */
+    this.getToken();
+  },
+
+  /**
+   * 获得页面中的token
+   */
+  getToken() {
+    var reqTask = wx.request({
+      url: 'https://map.sdu.edu.cn/campus/m_generateToken',
+      data: {},
+      header: {'content-type':'application/json'},
+      method: 'POST',
+      dataType: 'json',
+      responseType: 'text',
+      success: (result)=>{
+        // 请求成功的token
+        if (result.data) {
+          app.globalData.token = result.data.msg;
+        }
+      },
+      fail: ()=>{},
+      complete: ()=>{}
+    });
   },
   goToSDU() {
     wx.navigateTo({

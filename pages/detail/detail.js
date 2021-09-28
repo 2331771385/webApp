@@ -1,8 +1,3 @@
-// var amapFile = require('../../libs/amap-wx.js');  //引入高德js
-// var config = require('../../libs/config.js'); //引用我们的配置文件
-// var map = require('https://webapi.amap.com/ui/1.1/main.js');
-// var AMap = require('https://webapi.amap.com/maps?v=1.4.15&key=fc80ab32a75113402df0a426957c25e3')
-
 const app = getApp();
 Page({
   data: {
@@ -207,12 +202,14 @@ Page({
         markerImg: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/3d-weihai5.png'
       }
     ],
-
-    marker: '',
+    detailShow: true,
+    token: '',
+    markers: [],
     longitude: null, //经度
     latitude: null,
     picStudy: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/study.png',
-    picPath: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/path.png'
+    picPath: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/path.png',
+    dataList: [], // 调用接口返回的所有的数组
   },
   /**
    * 
@@ -233,20 +230,41 @@ Page({
         this.setData({
           longitude: item.longitude,
           latitude: item.latitude,
-          marker: item.markerImg
         })
       }
     });
 
-    // var that = this;
-    // var key = config.Config.key;
-    // var myAmapFun = new amapFile.AMapWX({ key: key });
-    // // 获得精准定位
-    // myAmapFun.getRegeo({
-    //   success:function(data) {
-    //     console.log(data);
-    //   }
-    // })
+    /**
+     * 页面加载的时候，就显示迎新的景点
+     */
+    this.getStudentJd();
+  },
+
+  getStudentJd(){
+    wx.request({
+      url: 'https://map.sdu.edu.cn/poi/getCampusPoiList',
+      data: {
+        token: app.globalData.token,
+        ID: this.data.campusId,
+        poiType: 4
+      },
+      header: {
+        'content-type':'application/json'
+      },
+      method: 'GET',
+      success: (result)=>{
+        /**
+         * 在这里可以拿到接口中的数据
+         * 可以显示在页面上
+         */
+        
+        console.log(result);
+      },
+      fail: (err)=>{
+        console.log(err);
+      },
+      complete: ()=>{}
+    });
   },
 
   /**
@@ -285,24 +303,56 @@ Page({
    * 对输入的内容进行搜索
    */
   getSearchResult() {
+    this.setData({
+      token: app.globalData.token
+    })
     var reqTask = wx.request({
-      url: 'http://152.136.208.17:8096/poi/getCampusPoiList',
+      url: 'https://map.sdu.edu.cn/poi/getCampusPoiList',
       data: {
-        token: '8663fa1c6a884516839bc168584879ccVA8o5v',
+        token: this.data.token,
         ID: this.data.campusId,
         keyWord: this.data.keyWord
       },
       header: {
         'content-type':'application/json'
       },
-      method: 'POST',
+      method: 'GET',
       success: (result)=>{
-        console.log(result);
+        /**
+         * 在这里可以拿到接口中的数据
+         * 可以显示在页面上
+         */
+        if (result.statusCode == 200) {
+          this.setData({
+            dataList: result.data.racs
+          });
+          result.data.racs.forEach(item => {
+            this.setData({
+              markers:{
+                longitude: item.longitude,
+                latitude: item.latitude,
+                callout: {
+                  content: item.PoiName
+                }
+              }
+            })
+          })
+        }
       },
       fail: (err)=>{
         console.log(err);
       },
       complete: ()=>{}
     });
-  }
+  },
+
+  /**
+   * 点击首页中的详情跳转到详情页
+   * 跳转到buildDetail
+   */
+   detailPage(){
+    wx.navigateTo({
+      url: '/pages/buildDetail/buildDetail'
+    })
+   }
 })
