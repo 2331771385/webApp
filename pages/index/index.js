@@ -113,5 +113,8 @@ Page({
     wx.navigateTo({
       url: `/pages/detail/detail?campusId=${item.id}&campusName=${item.label}`
     })
+    // wx.navigateTo({
+    //   url: '/pages/toH5/h5'
+    // })
   }
 })
