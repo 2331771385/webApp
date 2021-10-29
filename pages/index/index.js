@@ -110,11 +110,11 @@ Page({
   },
   goToOtherDetail(e){
     let item = e.currentTarget.dataset.set; // 得到当前点击的对象
-    wx.navigateTo({
-      url: `/pages/detail/detail?campusId=${item.id}&campusName=${item.label}`
-    })
     // wx.navigateTo({
-    //   url: '/pages/toH5/h5'
+    //   url: `/pages/detail/detail?campusId=${item.id}&campusName=${item.label}`
     // })
+    wx.navigateTo({
+      url: `/pages/out/out?campusId=${item.id}&campusName=${item.label}`
+    })
   }
 })

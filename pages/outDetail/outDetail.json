@@ -1,4 +1,6 @@
 {
   "component": true,
-  "usingComponents": {}
+  "usingComponents": {
+    "dialog": "/common/dialogCom/dialog"
+  }
 }

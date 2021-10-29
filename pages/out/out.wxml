@@ -1,2 +1,2 @@
 <!--pages/out/out.wxml-->
-<web-view src="https://www.sdu.edu.cn/"></web-view>
+<web-view class="mapContainer" src="{{url}}"></web-view>

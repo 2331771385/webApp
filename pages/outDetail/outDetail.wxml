@@ -1,2 +1,71 @@
 <!--pages/outDetail.wxml-->
-<web-view src="https://www.sdu.edu.cn/sdgk/sdjj.htm"></web-view>
+<view class="detailContainer">
+    <view class="header">
+        <view class="backIcon">
+            <image class="backImg" src="{{backIcon}}" bindtap="gotoBack"> 
+            </image>
+        </view>
+        <view class="header-title">{{locationData.PoiName}}</view>
+    </view>
+    <view class='content'>
+        <view class="content-imgs">
+            <view class="content-img">
+                <swiper class="swiper" indicator-dots="{{indicatorDots}}" 
+                    autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+                    <block wx:for="{{pinUrls}}" wx:key="*this">
+                        <swiper-item>
+                            <view>
+                                <image class="swiper-item-one" src="{{item}}">
+                                </image>
+                            </view>
+                        </swiper-item>
+                    </block>
+                </swiper>
+            </view>
+            <view class="content-des">
+                <view class="des-title">{{locationData.PoiName}}</view>
+                <view class='des-content'>
+                    {{locationData.detailDescribe}}
+                </view>
+            </view>
+        </view>
+        <view class="content-saying">
+            <view class="saying-title">
+                <text class="title-left">留言板</text>
+                <text class="title-right" bindtap="gotoAllMsg">查看全部 ></text>
+            </view>
+            <view class="msgListSty">
+                <view wx:for="{{msgList1}}" wx:key='id' class='com-sItem'  bindtap='setText'>
+                    <view class="msg-img">
+                        <view class="msg-img-left">
+                            <image class="left-img" src="{{item.msgImg}}">
+                            </image>
+                        </view>
+                        <view class='msg-img-right'>
+                            <text>{{item.msgName}}</text>
+                        </view>
+                    </view>
+                    <view class="msg-des">{{item.msgDes}}</view>
+                    <view class="msg-timer">{{item.msgTimer}}</view>
+                </view>
+            </view>
+        </view>
+        <view class="content-bottom">
+            <view wx:for="{{bottomOpt}}" wx:key='id' class='opt-Items' data-set="{{item}}" bindtap='goToDetailPage'>
+                <view class="opt-img">
+                    <image class="opt-left-img" src="{{item.optImg}}">
+                    </image>
+                </view>
+                <text class='opt-right-text'>{{item.optName}}</text>
+            </view>
+        </view>
+    </view>
+
+
+    <!-- 自定义弹框的内容 --->
+    <dialog id="dialog"
+        bind:error="_error"  
+        bind:success="_success"
+    >
+    </dialog>
+</view>

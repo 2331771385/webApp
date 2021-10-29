@@ -1,23 +1,19 @@
-// pages/out/out.js
-Component({
-  /**
-   * 组件的属性列表
-   */
-  properties: {
-
-  },
-
-  /**
-   * 组件的初始数据
-   */
+const app = getApp();
+Page({
   data: {
-
+    campusId: null,
+    campusName: '',
+    url: '', //页面跳转的连接，包含参数的拼接
   },
-
-  /**
-   * 组件的方法列表
-   */
-  methods: {
-
-  }
+  onLoad(options) {
+    let campusId = options.campusId;
+    let campusName = options.campusName;
+    this.setData({
+      campusId: campusId,
+      campusName: campusName,
+      //url: 'http://localhost:8081/ttt.html'
+      // url:`http://localhost:8081/ttt.html?campusId=${campusId}&campusName=${campusName}`
+      url: `http://localhost:8081/map.html?campusId=${campusId}&campusName=${campusName}`
+    });
+  },
 })

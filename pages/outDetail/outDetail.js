@@ -1,23 +1,124 @@
-// pages/outDetail.js
-Component({
-  /**
-   * 组件的属性列表
-   */
-  properties: {
-
-  },
-
-  /**
-   * 组件的初始数据
-   */
+const app = getApp();
+Page({
   data: {
+    backIcon: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/back1.png',
+    locationData: {},
+    pinUrls:[],
+    indicatorDots: false,
+    vertical: false,
+    autoplay: false,
+    interval: 2000,
+    duration: 500,
+    msgList: [
+      {
+        id: 1,
+        msgImg: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/zs.png', // 留言者的微信头像
+        msgName: '张三', //留言者的名称
+        msgDes: '地理位置优越，景色优美。', //留言描述
+        msgTimer: '2021-10-28 17:00'
+      },
+      {
+        id: 2,
+        msgImg: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/ls.png', // 留言者的微信头像
+        msgName: '李四', //留言者的名称
+        msgDes: '打卡，景色秀丽。', //留言描述
+        msgTimer: '2021-10-26 12:15'
+      },
+      {
+        id: 3,
+        msgImg: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/wxh.png', // 留言者的微信头像
+        msgName: '王小华', //留言者的名称
+        msgDes: '校门还是那么大气，赞！', //留言描述
+        msgTimer: '2021-10-25 16:35'
+      }
+    ],
+    msgList1: [],
+    bottomOpt: [
+      {
+        id: 1,
+        optImg: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/share.png',
+        optName: '分享',
+
+      },
+      {
+        id: 2,
+        optImg: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/shoucang.png',
+        optName: '收藏',
+      },
+      {
+        id: 3,
+        optImg: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/edit.png',
+        optName: '留言'
+      },
+      {
+        id: 4,
+        optImg: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/shijing.png',
+        optName: '实景'
+      },
+      {
+        id: 5,
+        optImg: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/go.png',
+        optName: '前往'
+      }
+    ]
+  },
+  onReady() {
+    this.dialog = this.selectComponent('#dialog');
+  },
+  onLoad(options) {
+    let data = JSON.parse(options.current);
+    this.setData({
+      locationData: data,
+      msgList1: this.data.msgList.slice(0,2)
+    });
+    this.setData({
+      pinUrls: [`https://map.sdu.edu.cn${this.data.locationData.picUrls}`],
+      autoplay: true,
+      indicatorDots: true
+    })
+  },
+
+  // 跳转到上一个页面中
+  gotoBack() {
+    wx.navigateBack({
+      delta: 1
+    });
+  },
+
+  // 跳转到所有的留言界面
+  gotoAllMsg() {
 
   },
 
-  /**
-   * 组件的方法列表
-   */
-  methods: {
+  //点击详情页中的每一项，跳转到具体的页面
+  goToDetailPage(item) {
+    let index = item.currentTarget.dataset.set.id;
+    if (index == 1) {
+      // 进行分享
+    } else if (index == 2) {
+      //收藏
 
+    } else if (index == 3) {
+      //留言
+      this.showDialog();
+
+    } else if (index == 4) {
+      //实景
+      
+    } else if (index == 5) {
+      //前往
+    }
+  },
+  showDialog() {
+    this.dialog.showPopup();
+  },
+
+  // 点击取消的时候
+  _error() {
+    this.dialog.hidePopup();
+  },
+  //确认事件
+  _success() {
+    this.dialog.hidePopup();
   }
 })

@@ -1,0 +1,16 @@
+<!--pages/dialogCom/dialog.wxml-->
+<view class="wx-popup" hidden="{{flag}}">
+  <view class='popup-container'>
+    <view class="wx-popup-con">
+      <textarea class='moreInput' name="textArea" placeholder="留言不能超过1024个字节"></textarea>
+    </view>
+    <view class="wx-popup-btn">
+      <button class="btn-no" bindtap="_error">
+          <span class='btn-text-no'>取消</span>
+      </button>
+      <button class="btn-ok" bindtap="_success">
+          <span class='btn-text-ok'>发送</span>
+      </button>
+    </view>
+  </view>
+</view>

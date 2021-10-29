@@ -263,7 +263,7 @@ Page({
          * 可以显示在页面上
          */
         
-        console.log(result);
+        // console.log(result);
       },
       fail: (err)=>{
         console.log(err);

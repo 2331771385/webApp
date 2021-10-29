@@ -1,1 +1,6 @@
 /* pages/out/out.wxss */
+.mapContainer {
+  height: 1000px !important;
+  width: 500px;
+  background-color: firebrick;
+}

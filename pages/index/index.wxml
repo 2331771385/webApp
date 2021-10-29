@@ -25,7 +25,7 @@
     </view>
     <view class="flex-imgs">
       <block wx:for="{{imgs}}" wx:key="*this">
-        <view class="item-block" data-set="{{item}}">
+        <view class="item-block" data-set="{{item}}" bindtap="goToOtherDetail">
           <image class="item-img" src="{{item.value}}">
           </image>
           <p class="item-label">{{item.label}}</p>
@@ -43,7 +43,7 @@
     </view>
     <view class="flex-imgs" style="justify-content: center">
       <block wx:for="{{imgs2}}" wx:key="*this">
-        <view class="item-block2" data-set="{{item}}">
+        <view class="item-block2" data-set="{{item}}" bindtap="goToOtherDetail">
           <image class="item-img" src="{{item.value}}">
           </image>
           <p class="item-label">{{item.label}}</p>
