@@ -1,0 +1,41 @@
+<view class='planContain'>
+  <view class="header">
+      <view class="backIcon">
+          <image class="backImg" src="{{backIcon}}" bindtap="gotoBack"> 
+          </image>
+      </view>
+      <view class="header-title">{{locationData}}</view>
+  </view>
+</view>
+<!-- 输入起点和终点 -->
+<view class="top">
+  <!-- 输入的起点 -->
+  <view class="divItem" scroll-top="0">
+    <text class="divItem-text">起点</text>
+    <input placeholder='请输入起点坐标' value='{{keyword}}' bindinput="nearby_search"/>
+  </view> 
+  <!-- 输入的终点 -->
+  <view class="divItem" scroll-top="0">
+    <text class="divItem-text">终点</text>
+    <input disabled="true" value='{{locationData}}'/>
+  </view>
+  <!-- 交通方式的选择以及路线的规划 -->
+  <view class="divItem" scroll-top="0">
+    <text class="divItem-text">方式</text>
+    <view class="divItem-input">
+      <Select id="selectedItem" prop-array='{{pathSort}}'></Select>
+    </view>
+    <button class="divItem-btn" bindtap="getSearchPath">查询</button>
+  </view>
+</view>
+<view>
+  <map id="myMap" style="width:100%;height:700px;" 
+    longitude="{{longitude}}" 
+    latitude="{{latitude}}" 
+    scale="{{scale}}"
+    polyline = "{{polyline}}"
+    markers="{{markers}}"
+    bindregionchange="mapChange">
+  </map>
+</view>
+

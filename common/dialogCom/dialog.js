@@ -20,7 +20,7 @@ Component({
     // 弹窗确认按钮文字
     btn_ok: {
       type: String,
-      value: '确定'
+      value: '发送'
     } 
   },
 

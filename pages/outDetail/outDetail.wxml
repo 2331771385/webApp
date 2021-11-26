@@ -51,11 +51,11 @@
             </view>
         </view>
         <view class="content-bottom">
-            <view wx:for="{{bottomOpt}}" wx:key='id' class='opt-Items' data-set="{{item}}" bindtap='goToDetailPage'>
+            <view wx:for="{{bottomOpt}}" wx:if="{{item.showPicture}}" wx:key='id' class='opt-Items' data-set="{{item}}" bindtap='goToDetailPage'>
                 <view class="opt-img">
                     <image class="opt-left-img" src="{{item.optImg}}">
                     </image>
-                </view>
+                </view >
                 <text class='opt-right-text'>{{item.optName}}</text>
             </view>
         </view>

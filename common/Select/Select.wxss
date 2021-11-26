@@ -1,7 +1,7 @@
 /* common/Select/Select.wxss */
 .com-selectBox{
     width: 150rpx;
-    margin-top: 10rpx;
+    /* margin-top: 10rpx; */
 }
 .com-sContent{
     font-size: 16px;
@@ -15,40 +15,45 @@
     top: 16rpx;
     width: 24rpx;
     height: 24rpx;
-    color: #fff;
+    color: #9b0d14;
     transition: all .3s ease;
 }
 .com-sTxt{
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    padding:0 6px 0 6px;
+    /* padding:0 6px 0 6px; */
     font-size: 14px;
-    color: #fff;
+    color: #9b0d14;
 }
 .com-sList{
-    background: #9b0d14;
-    width: inherit;
+    background: #fff;
+    width: 123px;
     position: absolute;
-    border: 1px solid #e2e2e2;
+    border: 1px solid #9b0d14;
     border-top: none;
     box-sizing: border-box;
-    z-index: 3;
+    z-index: 999;
     margin-top: 10rpx;
-    min-height: 120rpx;
-    overflow: auto;
+    height: 90px;
+    overflow: hidden;
+    margin-left: -20rpx;
 }
 .com-sItem{
     height: 30px;
     line-height: 30px;
-    padding: 0 6px;
-    text-align: left;
+    /* padding: 0 6px; */
+    text-align: center;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     font-size: 14px;
-    color: #fff;
+    color: #9b0d14;
 }
 .com-sItem:first-child{
-    border-top: none;
+    border-top: 1px solid #9b0d14;
+}
+.selectedItem {
+    background-color: #9b0d14;
+    color: #fff;
 }
