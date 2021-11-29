@@ -126,10 +126,10 @@
     margin-bottom: 10rpx;
 }
 .com-sItem:first-child{
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid #6062669e;
 }
 .content-bottom {
-    border-top: 1px solid black;
+    border-top: 1px solid #6062669e;
     position: fixed;
     bottom: 0rpx;
     height: 70rpx;
@@ -151,4 +151,14 @@
 .opt-right-text {
     font-size: 0.8rem;
     line-height: 70rpx;
+}
+.opt-right-text1 {
+    font-size: 0.8rem;
+    line-height: 70rpx;
+    width: 30px !important;
+    padding: 0px;
+    border: none;
+    background-color: none;
+    font-weight: unset;
+    text-align: left;
 }

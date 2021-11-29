@@ -56,7 +56,8 @@
                     <image class="opt-left-img" src="{{item.optImg}}">
                     </image>
                 </view >
-                <text class='opt-right-text'>{{item.optName}}</text>
+                <button class='opt-right-text1' open-type="share" wx:if="{{item.optName == '分享'}}" >{{item.optName}}</button>
+                <text wx:else class='opt-right-text'>{{item.optName}}</text>
             </view>
         </view>
     </view>
