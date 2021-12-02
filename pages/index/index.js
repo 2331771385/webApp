@@ -40,7 +40,7 @@ Page({
         value: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/pic-ruanjian.jpg'
       },
       {
-        id: 4,
+        id: 5,
         label: '兴隆山校区',
         // value: '../img/pic-xinglongshan.jpg',
         value: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/pic-xinglongshan.jpg'
@@ -54,13 +54,13 @@ Page({
         value: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/pic-zhongxin.jpg'
       },
       {
-        id: 3,
+        id: 4,
         label: '趵突泉校区',
         // value: '../../img/pic-baotuquan.jpg'
         value: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/pic-baotuquan.jpg'
       },
       {
-        id: 5,
+        id: 3,
         label: '千佛山校区',
         // value: '../../img/pic-qianfoshan.jpg'
         value: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/pic-qianfoshan.jpg'
@@ -112,14 +112,20 @@ Page({
     });
   },
   goToSDU() {
+    // wx.navigateTo({
+    //   url: '/pages/out/out'
+    // })
     wx.navigateTo({
-      url: '/pages/out/out'
+      url: '/pages/copyAndDetail/copyAndDetail?opt=copyPage'
     })
   },
   gotoDetail() {
     wx.navigateTo({
-      url: '/pages/outDetail/outDetail'
+      url: '/pages/copyAndDetail/copyAndDetail?opt=detailPage'
     })
+    // wx.navigateTo({
+    //   url: '/pages/outDetail/outDetail'
+    // })
   },
   goToOtherDetail(e){
     let item = e.currentTarget.dataset.set; // 得到当前点击的对象

@@ -1,0 +1,2 @@
+<!--pages/copyAndDetail/copyAndDetail.wxml-->
+<web-view src="{{url}}"></web-view>

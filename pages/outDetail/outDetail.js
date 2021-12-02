@@ -77,48 +77,15 @@ Page({
   },
   onShareAppMessage: function (res) {
     var that = this;
-    console.log('转发事件的来源',res.from)
-    console.log(that.data)
     return { //自定义转发内容
       title: '这是一个页面', //自定义转发标题
       path: '/pages/outDetail/outDetail', //当前页面的路径 ，必须是以 / 开头的完整路径
-      // imageUrl: that.data.pic//不设置此字段时，默认截取当前页面作为展示的图片
-      // success: function (res) {
-      //   console.log(res.shareTickets[0])
-      //   // console.log
-      //   wx.getShareInfo({
-      //     shareTicket: res.shareTickets[0],
-      //     success: function (res) { console.log(res) },
-      //     fail: function (res) { console.log(res) },
-      //     complete: function (res) { console.log(res) }
-      //   })
-      // },
-      // fail: function (res) {
-      //   // 分享失败
-      //   console.log(res)
-      // }
     }
   },
   onReady() {
     this.dialog = this.selectComponent('#dialog');
   },
   onLoad(options) {
-    // 分享功能
-    // wx.showShareMenu({
-    //   withShareTicket: true,
-    //   success: function (res) {
-    //     // 分享成功
-    //     console.log('shareMenu share success')
-    //     console.log('分享'+res)
-    //   },
-    //   fail: function (res) {
-    //     // 分享失败
-    //     console.log(res)
-    //   }
-    // });
-
-
-
     this.setData({
       pinUrls: []
     })
