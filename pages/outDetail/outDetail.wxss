@@ -67,11 +67,15 @@
     height: 300rpx;
 }
 .des-title {
-    height: 30%;
+    height: 25%;
     font-size: 1rem;
 }
+.des-distance {
+    font-size: 0.8rem;
+}
 .des-content {
-    height: 65%;
+    margin-top: 5px;
+    height: 55%;
     font-size: 0.8rem;
     overflow-y: scroll;
     /* overflow: hidden;

@@ -1,3 +1,5 @@
+var QQMapWX = require('../../utils/qqmap-wx-jssdk.min.js');
+var qqmapsdk;
 const app = getApp();
 Page({
   data: {
@@ -73,7 +75,13 @@ Page({
         optName: '前往',
         showPicture: true
       }
-    ]
+    ],
+    isClick: false, // 判断是否点击了收藏按钮
+    job: [],
+    jobList: [],
+    id: '',
+    jobStorage: [],
+    jobId: ''
   },
   onShareAppMessage: function (res) {
     var that = this;
@@ -88,8 +96,22 @@ Page({
   onLoad(options) {
     this.setData({
       pinUrls: []
-    })
+    });
+    let self = this;
     let data = JSON.parse(options.current);
+
+    let syncData = wx.getStorageSync('jobData');
+    for(let i = 0; i < syncData.length; i++) {
+      if (syncData[i].content.PoiID == data.PoiID) {
+        self.setData({
+          isClick: true,
+          'bottomOpt[1].optName': '已收藏',
+          'bottomOpt[1].optImg': 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/mysc.png'
+        })
+        break;
+      }
+    }
+
     let pinUrls = this.data.pinUrls;
     let dataPinUrls = data.picUrls.split(';');
     for(var i = 0; i < dataPinUrls.length; i++) {
@@ -104,6 +126,46 @@ Page({
     } else {
       bottomOpt[3].showPicture = true;
     };
+    qqmapsdk = new QQMapWX({
+      key: 'BPQBZ-XU3L6-B7RS3-MNX25-UZBV2-WDBVF'
+    });
+    wx.showLoading({
+      title: '加载中'
+    });
+    //定位
+    wx.getLocation({
+      type: 'gcj02',
+      isHighAccuracy: true,
+      success(res) {
+        const latitude = res.latitude
+        const longitude = res.longitude
+        
+        //逆地址解析
+        qqmapsdk.reverseGeocoder({
+          location: {
+            latitude: latitude,
+            longitude: longitude
+          },
+          success: function (res) {
+            var distance = self.distance(latitude, longitude,data.latitude,data.longitude);
+            distance = distance + '公里';
+            self.setData({
+              distance: distance
+            })
+            wx.hideLoading();
+          },
+        });
+      },
+      fail(err) {
+        wx.hideLoading({});
+        wx.showToast({
+          title: '定位失败',
+          icon: 'none',
+          duration: 1500
+        })
+      }
+    });
+
     this.setData({
       locationData: data,
       msgList1: this.data.msgList.slice(0,2),
@@ -113,6 +175,19 @@ Page({
       bottomOpt: bottomOpt
     });
     
+  },
+
+  // 计算两点之间的距离
+  distance(la1, lo1, la2, lo2) {
+    var La1 = la1 * Math.PI / 180.0;
+    var La2 = la2 * Math.PI / 180.0;
+    var La3 = La1 - La2;
+    var Lb3 = lo1 * Math.PI / 180.0 - lo2 * Math.PI / 180.0;
+    var s = 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(La3 / 2), 2) + Math.cos(La1) * Math.cos(La2) * Math.pow(Math.sin(Lb3 / 2), 2)));
+    s = s * 6378.137;
+    s = Math.round(s * 10000) / 10000;
+    s = s.toFixed(1);
+    return s;
   },
 
   // 跳转到上一个页面中
@@ -129,12 +204,30 @@ Page({
 
   //点击详情页中的每一项，跳转到具体的页面
   goToDetailPage(item) {
+    let self = this;
     let index = item.currentTarget.dataset.set.id;
     if (index == 1) {
       // 进行分享
     } else if (index == 2) {
       //收藏
-
+      let selectedData = this.data.bottomOpt;
+      for(let i = 0; i < selectedData.length; i++) {
+        if (selectedData[i].id == index) {
+          if (selectedData[i].optName == '收藏') {
+            self.setData({
+              'bottomOpt[1].optName': '已收藏',
+              'bottomOpt[1].optImg': 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/mysc.png'
+            })
+          } else {
+            self.setData({
+              'bottomOpt[1].optName': '收藏',
+              'bottomOpt[1].optImg': 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/shoucang.png'
+            })
+          }
+          break;
+        }
+      }
+      this.haveSave();
     } else if (index == 3) {
       //留言
       this.showDialog();
@@ -147,6 +240,41 @@ Page({
       //前往,跳转到路径规划页面
       this.getPlanRouter();
     }
+  },
+
+  // 收藏功能
+  haveSave(e) {
+    if (!this.data.isClick == true) {
+      let jobData = app.globalData.jobList;
+      // for(let i = 0; i < jobData.length; i++) {
+      //   if (jobData[i].content.PoiID == this.data.locationData.PoiID) {
+          
+      //   }
+      // }
+      jobData.push({
+        jobId: jobData.length,
+        id: this.data.job.id,
+        content: this.data.locationData
+      });
+      wx.setStorageSync('jobData', jobData);//设置缓存
+      wx.showToast({
+        title: '已收藏',
+      })
+    } else {
+      wx.showToast({
+        title: '取消收藏'
+      });
+      let data = wx.getStorageSync('jobData');
+      for(let i = 0; i < data.length; i++) {
+        if (data[i].content.PoiID == this.data.locationData.PoiID) {
+          data.splice(i,1);
+        }
+      }
+      wx.setStorageSync('jobData', data);
+    }
+    this.setData({
+      isClick: !this.data.isClick
+    });
   },
 
 

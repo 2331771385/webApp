@@ -1,0 +1,28 @@
+<view class="collectionContainer">
+    <view class="header">
+        <view class="backIcon">
+            <image class="backImg" src="{{backIcon}}" bindtap="gotoBack"> 
+            </image>
+        </view>
+        <view class="header-title">收藏夹</view>
+    </view>
+    <view class='collectionBox'>
+        <view wx:for="{{job}}" wx:key='index' class='opt-Items' data-set="{{item}}" bindtap='goToDetail'>
+            <view class='items-left'>
+                <image class='items-left-img' src="{{item.pic}}">
+                </image>
+            </view>
+            <view class='items-right'>
+                <view class="items-right-title">
+                    <text>{{item.content.PoiName}}</text>
+                </view>
+                <view class='items-right-distance'>
+                    <text>距您{{item.distance}}</text>
+                </view>
+                <view class='items-right-des'>
+                    <text>{{item.content.shortDescribe}}</text>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>

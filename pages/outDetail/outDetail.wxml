@@ -24,6 +24,7 @@
             </view>
             <view class="content-des">
                 <view class="des-title">{{locationData.PoiName}}</view>
+                <view class="des-distance">距您{{distance}}</view>
                 <view class='des-content'>
                     {{locationData.detailDescribe}}
                 </view>

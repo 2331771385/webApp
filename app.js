@@ -18,6 +18,7 @@ App({
    * 这里定义的是全局变量，在这里定义的变量在每一个页面中都可以使用
    */
   globalData: {
-    token: ''
+    token: '',
+    jobList: []
   }
 })
