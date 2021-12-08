@@ -19,6 +19,6 @@ App({
    */
   globalData: {
     token: '',
-    jobList: []
+    jobList: wx.getStorageSync('jobData') || []
   }
 })

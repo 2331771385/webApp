@@ -246,11 +246,7 @@ Page({
   haveSave(e) {
     if (!this.data.isClick == true) {
       let jobData = app.globalData.jobList;
-      // for(let i = 0; i < jobData.length; i++) {
-      //   if (jobData[i].content.PoiID == this.data.locationData.PoiID) {
-          
-      //   }
-      // }
+      // let jobData = wx.getStorageSync('jobData');
       jobData.push({
         jobId: jobData.length,
         id: this.data.job.id,
@@ -270,6 +266,7 @@ Page({
           data.splice(i,1);
         }
       }
+      app.globalData.jobList = data;
       wx.setStorageSync('jobData', data);
     }
     this.setData({

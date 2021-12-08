@@ -11,6 +11,5 @@ Page({
       keyWord: options.keyWord,
       url: `http://localhost:8081/allPicture.html?campusId=${options.campusId}&keyWord=${options.keyWord}`
     })
-    console.log(options);
   },
 })
