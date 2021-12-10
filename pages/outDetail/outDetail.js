@@ -84,10 +84,9 @@ Page({
     jobId: ''
   },
   onShareAppMessage: function (res) {
-    var that = this;
-    return { //自定义转发内容
-      title: '这是一个页面', //自定义转发标题
-      path: '/pages/outDetail/outDetail', //当前页面的路径 ，必须是以 / 开头的完整路径
+    return {
+      title: '分享该页面', // 自定义转发标题
+      path: '/pages/outDetail/outDetail?current='+JSON.stringify(this.data.locationData), //当前页面的路径 ，必须是以 / 开头的完整路径
     }
   },
   onReady() {
@@ -208,6 +207,7 @@ Page({
     let index = item.currentTarget.dataset.set.id;
     if (index == 1) {
       // 进行分享
+
     } else if (index == 2) {
       //收藏
       let selectedData = this.data.bottomOpt;

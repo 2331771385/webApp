@@ -9,8 +9,6 @@ Page({
   onLoad(options) {
     let self = this;
     let savejob = wx.getStorageSync('jobData');
-    console.log('这是初始化的缓存数据');
-    console.log(savejob);
     if (savejob.length) {
       qqmapsdk = new QQMapWX({
         key: 'BPQBZ-XU3L6-B7RS3-MNX25-UZBV2-WDBVF'

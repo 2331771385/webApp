@@ -112,9 +112,6 @@ Page({
     });
   },
   goToSDU() {
-    // wx.navigateTo({
-    //   url: '/pages/out/out'
-    // })
     wx.navigateTo({
       url: '/pages/copyAndDetail/copyAndDetail?opt=copyPage'
     })
@@ -123,9 +120,6 @@ Page({
     wx.navigateTo({
       url: '/pages/copyAndDetail/copyAndDetail?opt=detailPage'
     })
-    // wx.navigateTo({
-    //   url: '/pages/outDetail/outDetail'
-    // })
   },
   goToOtherDetail(e){
     let item = e.currentTarget.dataset.set; // 得到当前点击的对象
