@@ -47,7 +47,10 @@
                         </view>
                     </view>
                     <view class="msg-des">{{item.msgDes}}</view>
-                    <view class="msg-timer">{{item.msgTimer}}</view>
+                    <view class='msg-bottom'>
+                        <view class="msg-timer">{{item.msgTimer}}</view>
+                        <view class='msg-answer'>回复</view>
+                    </view>
                 </view>
             </view>
         </view>

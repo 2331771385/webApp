@@ -12,32 +12,6 @@ Page({
     autoplay: false,
     interval: 2000,
     duration: 500,
-    msgList: [
-      {
-        id: 1,
-        // msgImg: '../../img/zs.png', // 留言者的微信头像
-        msgImg: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/zs.png', // 留言者的微信头像
-        msgName: '张三', //留言者的名称
-        msgDes: '地理位置优越，景色优美。', //留言描述
-        msgTimer: '2021-10-28 17:00'
-      },
-      {
-        id: 2,
-        // msgImg: '../../img/ls.png', // 留言者的微信头像
-        msgImg: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/ls.png', // 留言者的微信头像
-        msgName: '李四', //留言者的名称
-        msgDes: '打卡，景色秀丽。', //留言描述
-        msgTimer: '2021-10-26 12:15'
-      },
-      {
-        id: 3,
-        // msgImg: '../../img/wxh.png', // 留言者的微信头像
-        msgImg: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/wxh.png', // 留言者的微信头像
-        msgName: '王小华', //留言者的名称
-        msgDes: '校门还是那么大气，赞！', //留言描述
-        msgTimer: '2021-10-25 16:35'
-      }
-    ],
     msgList1: [],
     bottomOpt: [
       {
@@ -81,7 +55,7 @@ Page({
     jobList: [],
     id: '',
     jobStorage: [],
-    jobId: ''
+    jobId: '',
   },
   onShareAppMessage: function (res) {
     return {
@@ -167,14 +141,14 @@ Page({
 
     this.setData({
       locationData: data,
-      msgList1: this.data.msgList.slice(0,2),
+      msgList1: app.globalData.msgList.slice(0,2),
       pinUrls: pinUrls,
       autoplay: true,
       indicatorDots: true,
       bottomOpt: bottomOpt
-    });
-    
+    });   
   },
+
 
   // 计算两点之间的距离
   distance(la1, lo1, la2, lo2) {
@@ -198,7 +172,10 @@ Page({
 
   // 跳转到所有的留言界面
   gotoAllMsg() {
-    
+    let poiName = this.data.locationData.PoiName;
+    wx.navigateTo({
+      url: `/pages/allMsgPage/allMsgPage?poiName=${poiName}`
+    })
   },
 
   //点击详情页中的每一项，跳转到具体的页面

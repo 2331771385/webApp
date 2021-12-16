@@ -1,0 +1,75 @@
+<view class="msgContainer">
+    <view class="header">
+        <view class="backIcon">
+            <image class="backImg" src="{{backIcon}}" bindtap="gotoBack"> 
+            </image>
+        </view>
+        <view class="header-title">{{poiName}}</view>
+    </view>
+    <view class="content-saying">
+        <view class="msgListSty">
+            <view wx:for="{{msgList}}" wx:key='id' class='com-sItem'  bindtap='setText'>
+                <view class="msg-img">
+                    <view class="msg-img-left">
+                        <image class="left-img" src="{{item.msgImg}}">
+                        </image>
+                    </view>
+                    <view class='msg-img-right'>
+                        <text>{{item.msgName}}</text>
+                    </view>
+                </view>
+                <view class="msg-des">{{item.msgDes}}</view>
+                <view class='msg-bottom'>
+                    <view class="msg-timer">{{item.msgTimer}}</view>
+                    <view class='msg-answer'>回复</view>
+                </view>
+
+                <!-- 若当前评论有回复，就展示 -->
+                <view wx:if="{{item.children}}" >
+                    <view wx:if="{{!isClick}}" class='moreMsg'>
+                        <view class='line'>
+                            <image src="{{line}}"></image>
+                        </view>
+                        <view class='line-text'>
+                            <text class='text'>展开{{item.children.length}}条评论</text>
+                            <image src="{{colleaps}}" class="notRotate" bindtap="hasColleaps"></image>
+                        </view>
+                    </view>
+                </view>
+                <!-- 点击按钮出现评论 -->
+                <view wx:if="{{isClick && item.children}}" class='subChildren'>
+                    <view  wx:for="{{item.children}}" wx:key='index' class='com-sItem'>
+                        <view class="msg-img">
+                            <view class="msg-img-left">
+                                <image class="left-img" src="{{item.msgImg}}"></image>
+                            </view>
+                            <view class='msg-img-right'>
+                                <text>{{item.msgName}}</text>
+                            </view>
+                        </view>
+                        <view class="msg-des">{{item.msgDes}}</view>
+                        <view class='msg-bottom'>
+                            <view class="msg-timer">{{item.msgTimer}}</view>
+                            <view class='msg-answer'>回复</view>
+                        </view>
+                    </view>
+
+                    <view class='notColleaps'>
+                        <view class='line'>
+                            <image src="{{line}}"></image>
+                        </view>
+                        <view class='line-text'>
+                            <text class='text'>收起</text>
+                            <image src="{{colleaps}}" class="rotate" bindtap="hasColleaps"></image>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+
+    <view class="input-panel" style="bottom:{{keyboardHeight}}px">
+        <input adjust-position="{{false}}" hold-keyboard="{{true}}" bindinput="getInput" value="{{curMessage}}"/>
+        <view class="send-btn" bindtap="send">发送</view>
+    </view>
+</view>

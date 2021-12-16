@@ -44,7 +44,7 @@
     padding: 0.5rem;
 }
 .content-saying {
-    height: 400rpx;
+    max-height: 400rpx;
     margin-top: 30rpx;
     box-shadow: 2px 2px 6px #909090 ;
     padding: 0.5rem;
@@ -94,7 +94,7 @@
     color: blue;
 }
 .msgListSty {
-    height: 87%;
+    max-height: 87%;
     margin-top: 10rpx;
 }
 .msg-img {
@@ -121,16 +121,27 @@
     text-align: left;
     margin-top: 10rpx;
 }
+.msg-bottom {
+    display: flex;
+}
 .msg-timer {
+    margin-right: 30rpx;
     height: 20%;
     font-size: 0.8rem;
+    margin-top: 10rpx;
+    max-width: 40%;
+}
+.msg-answer {
+    margin-top: 10rpx;
+    font-size: 0.8rem;
+    color: gray;
 }
 .com-sItem{
     height: 47%;
-    margin-bottom: 10rpx;
+    margin-bottom: 30rpx;
 }
-.com-sItem:first-child{
-    border-bottom: 1px solid #6062669e;
+.com-sItem:last-child{
+    margin-bottom: 10rpx;
 }
 .content-bottom {
     border-top: 1px solid #6062669e;
