@@ -84,55 +84,7 @@ Page({
 
   onLoad() {
     this.getToken();
-
-    let self = this;
-    // 获取微信登录者的头像和用户名
-    self.isAuthorize().then(res => {
-      // 获取头像昵称
-      wx.getUserInfo({
-        withCredentials: true,
-        success: (result) => {
-          app.globalData.userInfo = result.userInfo; // 用户的头像以及用户名
-        }
-      });
-    }).catch(err => {
-      console.log('获取用户微信失败');
-    })
   },
-
-  /**
-   * 是否授权获取头像和昵称，
-   * 已经授权返回then
-   * 没有授权返回catch
-   */
-   isAuthorize() {
-    return new Promise((resolve, reject) => {
-      // 获取用户信息
-      wx.getSetting({
-        success: (result) => {
-          if (result.authSetting['scope.userInfo']) {
-            resolve();
-          } else {
-            reject();
-          }
-          // if (!result.authSetting['scope.record']) {
-          //   wx.authorize({
-          //     scope: 'scope.record',
-          //     success () {
-          //       // 用户已经同意小程序使用录音功能，后续调用 wx.startRecord 接口不会弹窗询问
-          //       wx.startRecord()
-          //     }
-          //   })
-          // }
-        },
-        fail: () => {
-          console.log('失败');
-        }
-      });
-    })
-  },
-
-   
 
   /**
    * 获得页面中的token

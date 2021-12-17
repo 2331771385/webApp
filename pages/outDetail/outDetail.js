@@ -56,6 +56,21 @@ Page({
     id: '',
     jobStorage: [],
     jobId: '',
+
+    line: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/line.png',
+    colleaps: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/colleaps.png',
+    isColleaps: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/up.png',
+    msgBox: false, // 控制软键盘的显示与隐藏
+
+    statsuBarHeight: app.globalData.statsuBarHeight,
+    headHeight:40,
+    chatListHeight:0,
+    keyboardHeight:0,
+    inutPanelHeight:50,
+    toView: "item0",
+    curMessage:"",
+    focus: false,
+    placeholder: '留下属于你的精彩评论吧'
   },
   onShareAppMessage: function (res) {
     return {
@@ -139,6 +154,15 @@ Page({
       }
     });
 
+    this.setChatListHeight();
+    wx.onKeyboardHeightChange(res => { //监听键盘高度变化
+      this.setData({
+        keyboardHeight: res.height
+      });
+      this.setChatListHeight();
+      // this.scroll2Bottom();
+    });
+
     this.setData({
       locationData: data,
       msgList1: app.globalData.msgList.slice(0,2),
@@ -148,6 +172,80 @@ Page({
       bottomOpt: bottomOpt
     });   
   },
+
+
+
+  setChatListHeight() {
+    this.setData({
+      chatListHeight: app.globalData.sysHeight - app.globalData.statsuBarHeight - this.data.headHeight - this.data.keyboardHeight- this.data.inutPanelHeight
+    })
+  },
+  hideKeyboard(){
+    wx.hideKeyboard();
+    this.hideMediaPanel();
+  },
+  getInput(e){
+    let value = e.detail.value;
+    this.setData({
+      curMessage: value
+    });
+  },
+  send() {
+    let curMessage = this.data.curMessage;
+    if (curMessage.trim() === "") {
+      wx.showToast({
+        title: '请输入聊天内容',
+        duration: 2000,
+        icon: "none"
+      })
+      return;
+    }
+    let messageList = this.data.msgList;
+    let currentTime = this.getCurrentTime();
+    let currentUser = app.globalData.userInfo;
+    messageList.unshift({
+      msgImg: currentUser.avatarUrl, // 留言者的微信头像
+      msgName: currentUser.nickName, //留言者的名称
+      msgDes: this.data.curMessage, //留言描述
+      msgTimer: currentTime
+    });
+    this.setData({
+      curMessage:"",
+      msgList: messageList
+    })
+    app.globalData.msgList = this.data.msgList;
+  },
+
+  // 获取当前时间
+  getCurrentTime() {
+    let timer = new Date();
+    let year = timer.getFullYear();
+    let month = timer.getMonth() + 1;
+    let date = timer.getDate();
+    let hours = timer.getHours();
+    let second = timer.getSeconds();
+    let currentTime = year + '-' + month + '-' + date + ' ' + hours + ':' + second;
+    return currentTime;
+  },
+
+
+
+
+  // 点击展开或者收起评论
+  hasColleaps(event) {
+    let index = event.currentTarget.dataset.set;
+    let data = app.globalData.msgList;
+    for(let i = 0; i < data.length; i++) {
+      if (data[i].id == index) {
+        data[i].isClick = !data[i].isClick;
+        break;
+      }
+    };
+    app.globalData.msgList = data;
+    this.setData({
+      msgList1: app.globalData.msgList
+    });
+  }, 
 
 
   // 计算两点之间的距离
@@ -270,16 +368,73 @@ Page({
     })
   },
 
-  showDialog() {
-    this.dialog.showPopup();
+  async showDialog() {
+    let self = this;
+    if (app.globalData.userInfo != null) {
+      self.setData({
+        msgBox: true,
+        placeholder: '留下属于你的精彩评论吧',
+      });
+      return;
+    }
+    wx.getUserProfile({
+      desc: '必须授权成功后才能进行留言',
+      success(res) {
+        self.setData({
+          msgBox: true,
+          placeholder: '留下属于你的精彩评论吧',
+        });
+        app.globalData.userInfo = res.userInfo;
+      },
+      fail(err) {
+        wx.showToast({
+          title: '授权成功之后才能留言',
+          duration: 2000,
+          icon: "none"
+        })
+      }
+    })
   },
 
-  // 点击取消的时候
-  _error() {
-    this.dialog.hidePopup();
+  hideInput() {
+    let msgBox = this.data.msgBox;
+    if (msgBox) {
+      this.setData({
+        msgBox: false,
+        focus: false
+      })
+    }
   },
-  //确认事件
-  _success() {
-    this.dialog.hidePopup();
-  }
+
+  getAnswer(e) {
+    let msgName = e.currentTarget.dataset.set;
+    let self = this;
+    if (app.globalData.userInfo != null) {
+      this.setData({
+        placeholder: `回复${msgName}`,
+        focus: 'auto',
+        msgBox: true
+      });
+      return;
+    };
+    wx.getUserProfile({
+      desc: '必须授权成功后才能进行留言',
+      success(res) {
+        self.setData({
+          placeholder: `回复${msgName}`,
+          focus: 'auto',
+          msgBox: true
+        });
+        app.globalData.userInfo = res.userInfo;
+      },
+      fail(err) {
+        wx.showToast({
+          title: '授权成功之后才能留言',
+          duration: 2000,
+          icon: "none"
+        })
+      }
+    })
+    
+  },
 })

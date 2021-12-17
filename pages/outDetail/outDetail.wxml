@@ -7,8 +7,8 @@
         </view>
         <view class="header-title">{{locationData.PoiName}}</view>
     </view>
-    <view class='content'>
-        <view class="content-imgs">
+    <view class='content' >
+        <view class="content-imgs" bindtap="hideInput">
             <view class="content-img">
                 <swiper class="swiper" indicator-dots="{{indicatorDots}}" 
                     autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
@@ -30,7 +30,7 @@
                 </view>
             </view>
         </view>
-        <view class="content-saying">
+        <view class="content-saying" bindtap="hideInput">
             <view class="saying-title">
                 <text class="title-left">留言板</text>
                 <text class="title-right" bindtap="gotoAllMsg">查看全部 ></text>
@@ -49,8 +49,49 @@
                     <view class="msg-des">{{item.msgDes}}</view>
                     <view class='msg-bottom'>
                         <view class="msg-timer">{{item.msgTimer}}</view>
-                        <view class='msg-answer'>回复</view>
+                        <view class='msg-answer' data-set='{{item.msgName}}' catchtap="getAnswer">回复</view>
                     </view>
+
+                    <!-- 若当前评论有回复，就展示 -->
+                    <view wx:if="{{item.children}}" >
+                        <view wx:if="{{!item.isClick}}" class='moreMsg'>
+                            <view class='line'>
+                                <image src="{{line}}"></image>
+                            </view>
+                            <view class='line-text'>
+                                <text class='text'>展开{{item.children.length}}条评论</text>
+                                <image src="{{colleaps}}" data-set='{{item.id}}' class="notRotate" bindtap="hasColleaps"></image>
+                            </view>
+                        </view>
+                    </view>
+                    <!-- 点击按钮出现评论 -->
+                    <view wx:if="{{item.isClick && item.children}}" class='subChildren'>
+                        <view  wx:for="{{item.children}}" wx:key='index' class='com-sItem'>
+                            <view class="msg-img">
+                                <view class="msg-img-left">
+                                    <image class="left-img" src="{{item.msgImg}}"></image>
+                                </view>
+                                <view class='msg-img-right'>
+                                    <text>{{item.msgName}}</text>
+                                </view>
+                            </view>
+                            <view class="msg-des">{{item.msgDes}}</view>
+                            <view class='msg-bottom'>
+                                <view class="msg-timer">{{item.msgTimer}}</view>
+                            </view>
+                        </view>
+
+                        <view class='notColleaps'>
+                            <view class='line'>
+                                <image src="{{line}}"></image>
+                            </view>
+                            <view class='line-text'>
+                                <text class='text'>收起</text>
+                                <image src="{{colleaps}}" class="rotate" data-set='{{item.id}}' bindtap="hasColleaps"></image>
+                            </view>
+                        </view>
+                    </view>
+
                 </view>
             </view>
         </view>
@@ -66,11 +107,8 @@
         </view>
     </view>
 
-
-    <!-- 自定义弹框的内容 --->
-    <dialog id="dialog"
-        bind:error="_error"  
-        bind:success="_success"
-    >
-    </dialog>
+    <view wx:if="{{msgBox}}" class="input-panel" style="bottom:{{keyboardHeight}}px">
+        <input placeholder="{{placeholder}}" adjust-position="{{false}}" focus="{{focus}}" hold-keyboard="{{true}}" bindinput="getInput" value="{{curMessage}}"/>
+        <view class="send-btn" bindtap="send">发送</view>
+    </view>
 </view>

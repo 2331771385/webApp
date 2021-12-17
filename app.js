@@ -34,7 +34,20 @@ App({
         msgName: '张三', //留言者的名称
         msgDes: '地理位置优越，景色优美。', //留言描述
         msgTimer: '2021-10-24 17:00',
+        isClick: false,
         children: [
+          {
+            msgImg: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/ls.png', // 留言者的微信头像
+            msgName: '李四', //留言者的名称
+            msgDes: '打卡，景色秀丽。', //留言描述
+            msgTimer: '2021-10-26 12:15'
+          },
+          {
+            msgImg: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/wxh.png', // 留言者的微信头像
+            msgName: '王小华', //留言者的名称
+            msgDes: '校门还是那么大气，赞！', //留言描述
+            msgTimer: '2021-10-25 16:35'
+          },
           {
             msgImg: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/ls.png', // 留言者的微信头像
             msgName: '李四', //留言者的名称
@@ -55,6 +68,21 @@ App({
         msgName: '李四', //留言者的名称
         msgDes: '打卡，景色秀丽。', //留言描述
         msgTimer: '2021-10-26 12:15',
+        isClick: false,
+        children: [
+          {
+            msgImg: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/ls.png', // 留言者的微信头像
+            msgName: '李四', //留言者的名称
+            msgDes: '打卡，景色秀丽。', //留言描述
+            msgTimer: '2021-10-26 12:15'
+          },
+          {
+            msgImg: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/wxh.png', // 留言者的微信头像
+            msgName: '王小华', //留言者的名称
+            msgDes: '校门还是那么大气，赞！', //留言描述
+            msgTimer: '2021-10-25 16:35'
+          }
+        ]
       },
       {
         id: 3,
@@ -62,6 +90,7 @@ App({
         msgName: '王小华', //留言者的名称
         msgDes: '校门还是那么大气，赞！', //留言描述
         msgTimer: '2021-10-25 16:35',
+        isClick: false
       }
     ],
 
