@@ -3,8 +3,8 @@ var qqmapsdk;
 const app = getApp();
 Page({
   data: {
-    // backIcon: '../../img/back1.png',
-    backIcon: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/back1.png',
+    backIcon: '../../common/img/back1.png',
+    // backIcon: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/back1.png',
     locationData: {},
     pinUrls:[],
     indicatorDots: false,
@@ -16,36 +16,36 @@ Page({
     bottomOpt: [
       {
         id: 1,
-        // optImg: '../../img/share.png',
-        optImg: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/share.png',
+        optImg: '../../common/img/share.png',
+        // optImg: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/share.png',
         optName: '分享',
         showPicture: true
       },
       {
         id: 2,
-        // optImg: '../../img/shoucang.png',
-        optImg: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/shoucang.png',
+        optImg: '../../common/img/shoucang.png',
+        // optImg: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/shoucang.png',
         optName: '收藏',
         showPicture: true
       },
       {
         id: 3,
-        // optImg: '../../img/edit.png',
-        optImg: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/edit.png',
+        optImg: '../../common/img/edit.png',
+        // optImg: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/edit.png',
         optName: '留言',
         showPicture: true
       },
       {
         id: 4,
-        // optImg: '../../img/shijing.png',
-        optImg: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/shijing.png',
+        optImg: '../../common/img/shijing.png',
+        // optImg: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/shijing.png',
         optName: '全景',
         showPicture: true
       },
       {
         id: 5,
-        // optImg: '../../img/go.png',
-        optImg: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/go.png',
+        optImg: '../../common/img/go.png',
+        // optImg: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/go.png',
         optName: '前往',
         showPicture: true
       }
@@ -56,10 +56,13 @@ Page({
     id: '',
     jobStorage: [],
     jobId: '',
+    line: '../../common/img/line.png',
+    colleaps: '../../common/img/colleaps.png',
+    isColleaps: '../../common/img/up.png',
 
-    line: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/line.png',
-    colleaps: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/colleaps.png',
-    isColleaps: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/up.png',
+    // line: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/line.png',
+    // colleaps: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/colleaps.png',
+    // isColleaps: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/up.png',
     msgBox: false, // 控制软键盘的显示与隐藏
 
     statsuBarHeight: app.globalData.statsuBarHeight,
@@ -70,7 +73,9 @@ Page({
     toView: "item0",
     curMessage:"",
     focus: false,
-    placeholder: '留下属于你的精彩评论吧'
+    placeholder: '留下属于你的精彩评论吧',
+    isAnswer: false,
+    currentParent: ''
   },
   onShareAppMessage: function (res) {
     return {
@@ -94,7 +99,8 @@ Page({
         self.setData({
           isClick: true,
           'bottomOpt[1].optName': '已收藏',
-          'bottomOpt[1].optImg': 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/mysc.png'
+          'bottomOpt[1].optImg': '../../common/img/mysc.png',
+          // 'bottomOpt[1].optImg': 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/mysc.png'
         })
         break;
       }
@@ -165,7 +171,7 @@ Page({
 
     this.setData({
       locationData: data,
-      msgList1: app.globalData.msgList.slice(0,2),
+      msgList1: app.globalData.msgList,
       pinUrls: pinUrls,
       autoplay: true,
       indicatorDots: true,
@@ -190,6 +196,7 @@ Page({
       curMessage: value
     });
   },
+
   send() {
     let curMessage = this.data.curMessage;
     if (curMessage.trim() === "") {
@@ -200,20 +207,41 @@ Page({
       })
       return;
     }
-    let messageList = this.data.msgList;
+    let messageList = this.data.msgList1;
     let currentTime = this.getCurrentTime();
     let currentUser = app.globalData.userInfo;
-    messageList.unshift({
-      msgImg: currentUser.avatarUrl, // 留言者的微信头像
-      msgName: currentUser.nickName, //留言者的名称
-      msgDes: this.data.curMessage, //留言描述
-      msgTimer: currentTime
-    });
+    if (this.data.isAnswer) {
+      let currentParentId = this.data.currentParent;
+      for(let i = 0; i < messageList.length; i++) {
+        if (messageList[i].id == currentParentId) {
+          if (!messageList[i].hasOwnProperty('children')) {
+            messageList[i].children = [];
+          }
+          messageList[i].children.push({
+            msgImg: currentUser.avatarUrl, // 留言者的微信头像
+            msgName: currentUser.nickName, //留言者的名称
+            msgDes: curMessage, //留言描述
+            msgTimer: currentTime
+          })
+        }
+      }
+    } else {
+      messageList.unshift({
+        id: messageList.length + 1,
+        msgImg: currentUser.avatarUrl, // 留言者的微信头像
+        msgName: currentUser.nickName, //留言者的名称
+        msgDes: curMessage, //留言描述
+        msgTimer: currentTime
+      });
+    }
+    
     this.setData({
+      isAnswer: false,
       curMessage:"",
-      msgList: messageList
-    })
-    app.globalData.msgList = this.data.msgList;
+      currentParent: '',
+      msgList1: messageList
+    });
+    app.globalData.msgList = this.data.msgList1;
   },
 
   // 获取当前时间
@@ -291,12 +319,14 @@ Page({
           if (selectedData[i].optName == '收藏') {
             self.setData({
               'bottomOpt[1].optName': '已收藏',
-              'bottomOpt[1].optImg': 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/mysc.png'
+              'bottomOpt[1].optImg': '../../common/img/mysc.png'
+              // 'bottomOpt[1].optImg': 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/mysc.png'
             })
           } else {
             self.setData({
               'bottomOpt[1].optName': '收藏',
-              'bottomOpt[1].optImg': 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/shoucang.png'
+              'bottomOpt[1].optImg': '../../common/img/shoucang.png'
+              // 'bottomOpt[1].optImg': 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/shoucang.png'
             })
           }
           break;
@@ -407,13 +437,15 @@ Page({
   },
 
   getAnswer(e) {
-    let msgName = e.currentTarget.dataset.set;
+    let msg = e.currentTarget.dataset.set;
     let self = this;
     if (app.globalData.userInfo != null) {
       this.setData({
-        placeholder: `回复${msgName}`,
+        placeholder: `回复${msg.msgName}`,
         focus: 'auto',
-        msgBox: true
+        msgBox: true,
+        isAnswer: true,
+        currentParent: msg.id
       });
       return;
     };
@@ -421,9 +453,11 @@ Page({
       desc: '必须授权成功后才能进行留言',
       success(res) {
         self.setData({
-          placeholder: `回复${msgName}`,
+          placeholder: `回复${msg.msgName}`,
           focus: 'auto',
-          msgBox: true
+          msgBox: true,
+          isAnswer: true,
+          currentParent: msg.id
         });
         app.globalData.userInfo = res.userInfo;
       },
@@ -435,6 +469,6 @@ Page({
         })
       }
     })
-    
   },
+
 })

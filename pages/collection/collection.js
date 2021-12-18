@@ -1,10 +1,12 @@
 var QQMapWX = require('../../utils/qqmap-wx-jssdk.min.js');
 var qqmapsdk;
 const app = getApp();
+
 Page({
   data: {
     job: [],
-    backIcon: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/back1.png',
+    backIcon: '../../common/img/back1.png',
+    // backIcon: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/back1.png',
   },
   onLoad(options) {
     let self = this;

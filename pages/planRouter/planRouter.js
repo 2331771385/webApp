@@ -18,7 +18,8 @@ Page({
     suggestion: [],
     selectedId: 0,
     keyword: '我的位置',
-    backIcon: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/back1.png', // 待返回的图片
+    backIcon: '../../common/img/back1.png',
+    // backIcon: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/back1.png', // 待返回的图片
     locationData: '',
     lat: null,
     lng: null,
@@ -88,7 +89,8 @@ Page({
                 longitude: longitude,
                 width: 32,
                 height:32,
-                iconPath: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/iconqidian.png'
+                iconPath: '../../common/img/iconqidian.png',
+                // iconPath: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/iconqidian.png'
               }]
             })
             // 调用接口
@@ -158,7 +160,8 @@ Page({
        longitude: endLng,
        width: 32,
        height: 32,
-       iconPath: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/zhongdian.png'
+       iconPath: '../../common/img/zhongdian.png'
+      //  iconPath: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/zhongdian.png'
      })
      let _this = this;
      wx.request({
@@ -228,7 +231,8 @@ Page({
               longitude: longitude,
               width: 32,
               height:32,
-              iconPath: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/iconqidian.png'
+              iconPath: '../../common/img/iconqidian.png'
+              // iconPath: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/iconqidian.png'
             })
             self.setData({
               latitude: latitude,

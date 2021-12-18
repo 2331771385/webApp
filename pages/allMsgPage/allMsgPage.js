@@ -3,10 +3,16 @@ Page({
   data: {
     msgList: [],
     poiName: '西门',
-    backIcon: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/back1.png',
-    line: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/line.png',
-    colleaps: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/colleaps.png',
-    isColleaps: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/up.png',
+    backIcon: '../../common/img/back1.png',
+    line: '../../common/img/line.png',
+    colleaps: '../../common/img/colleaps.png',
+    isColleaps: '../../common/img/up.png',
+    
+
+    // backIcon: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/back1.png',
+    // line: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/line.png',
+    // colleaps: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/colleaps.png',
+    // isColleaps: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/up.png',
     
     // 点击输入框弹起键盘
     statsuBarHeight: app.globalData.statsuBarHeight,
@@ -17,7 +23,9 @@ Page({
     toView: "item0",
     curMessage:"",
     focus: false,
-    placeholder: '留下属于你的精彩评论吧'
+    placeholder: '留下属于你的精彩评论吧',
+    isAnswer: false,
+    currentParent: ''
   },
 
   onLoad(options) {
@@ -58,7 +66,7 @@ Page({
         desc: '必须授权成功后才能进行留言',
         success(res) {
           app.globalData.userInfo = res.userInfo;
-          self.sendSuccess();
+          // self.sendSuccess();
         },
         fail(err) {
           wx.showToast({
@@ -71,7 +79,6 @@ Page({
     } else {
       this.sendSuccess();
     }
-    
   },
 
   sendSuccess() {
@@ -87,14 +94,35 @@ Page({
     let messageList = this.data.msgList;
     let currentTime = this.getCurrentTime();
     let currentUser = app.globalData.userInfo;
-    messageList.unshift({
-      msgImg: currentUser.avatarUrl, // 留言者的微信头像
-      msgName: currentUser.nickName, //留言者的名称
-      msgDes: this.data.curMessage, //留言描述
-      msgTimer: currentTime
-    });
+    if (this.data.isAnswer) {
+      let currentParentId = this.data.currentParent;
+      for(let i = 0; i < messageList.length; i++) {
+        if (messageList[i].id == currentParentId) {
+          if (!messageList[i].hasOwnProperty('children')) {
+            messageList[i].children = [];
+          }
+          messageList[i].children.push({
+            msgImg: currentUser.avatarUrl, // 留言者的微信头像
+            msgName: currentUser.nickName, //留言者的名称
+            msgDes: curMessage, //留言描述
+            msgTimer: currentTime
+          })
+        }
+      }
+    } else {
+      messageList.unshift({
+        id: messageList.length + 1,
+        msgImg: currentUser.avatarUrl, // 留言者的微信头像
+        msgName: currentUser.nickName, //留言者的名称
+        msgDes: this.data.curMessage, //留言描述
+        msgTimer: currentTime
+      });
+    }
+    
     this.setData({
+      isAnswer: false,
       curMessage:"",
+      currentParent: '',
       msgList: messageList
     })
     app.globalData.msgList = this.data.msgList;
@@ -137,12 +165,14 @@ Page({
 
   // 点击回复按钮，出现弹框
   getAnswer(e) {
-    let msgName = e.currentTarget.dataset.set;
+    let msg = e.currentTarget.dataset.set;
     let self = this;
     if (app.globalData.userInfo != null) {
       this.setData({
-        placeholder: `回复${msgName}`,
-        focus: 'auto'
+        placeholder: `回复${msg.msgName}`,
+        focus: 'auto',
+        isAnswer: true,
+        currentParent: msg.id
       });
       return;
     };
@@ -150,8 +180,10 @@ Page({
       desc: '必须授权成功后才能进行留言',
       success(res) {
         self.setData({
-          placeholder: `回复${msgName}`,
-          focus: 'auto'
+          placeholder: `回复${msg.msgName}`,
+          focus: 'auto',
+          isAnswer: true,
+          currentParent: msg.id
         });
         app.globalData.userInfo = res.userInfo;
       },

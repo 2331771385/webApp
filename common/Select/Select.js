@@ -1,4 +1,3 @@
-// Componet/Componet.js
 Component({
   /**
    * 组件的属性列表
@@ -15,7 +14,9 @@ Component({
         selectShow:false,//初始option不显示
         nowText:"步行路线",//初始内容
         animationData:{},//右边箭头的动画
-        idx: 0
+        idx: 0,
+        img: '../img/bdown.png',
+        // img: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/bdown.png'
     },
   /**
    * 组件的方法列表

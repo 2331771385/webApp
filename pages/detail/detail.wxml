@@ -75,7 +75,7 @@
         </view>
         <view class='share'>
             <view class="shareItems">
-                <image class="shareImg" src="cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/share.png" >
+                <image class="shareImg" src="{{picShare}}" >
                 </image>
                 <span class="shareText">
                     分享
@@ -95,7 +95,7 @@
                 </span>
             </view>
             <view class="shareItems">
-                <image class="shareImg" src="cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/shijing.png" >
+                <image class="shareImg" src="{{picSj}}" >
                     
                 </image>
                 <span class="shareText">
@@ -103,7 +103,7 @@
                 </span>
             </view>
             <view class="shareItems">
-                <image class="shareImg" src="cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/go.png" >
+                <image class="shareImg" src="{{picGo}}" >
                     
                 </image>
                 <span class="shareText">
