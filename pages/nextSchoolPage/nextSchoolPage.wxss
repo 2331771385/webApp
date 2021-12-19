@@ -1,0 +1,128 @@
+.schoolContainer {
+    height: 100vh;
+    width: 100vw;
+}
+.header {
+    height: 6%;
+    width: 100%;
+    /* background-color: #9b0d14; */
+}
+.backIcon {
+    width: 32rpx;
+    height: 32rpx;
+    float: left;
+    margin-left: 10rpx;
+    margin-top: 15rpx;
+}
+.backImg {
+    width: 32rpx;
+    height: 32rpx;
+}
+.header-title {
+    color: #000;
+    line-height: 70rpx;
+    font-size: 18px;
+    text-align: center;
+}
+.picBox {
+    height: 94%;
+    width: 100%;
+}
+.imgBox {
+    height: 100%;
+    width: 100%;
+}
+.startBtn {
+    left: 50%;
+    transform: translateX(-50%);
+    position: absolute;
+    bottom: 50rpx;
+}
+.scaleBtn {
+    width: 120px;
+    height: 45px;
+    /* background-color: #cd3737; */
+    border-radius: 45px;
+    font-size: 16px;
+    animation: switch 1.5s ease-out infinite;
+}
+.scaleBtn image {
+    width: 50rpx;
+    height: 50rpx;
+    display: block;
+    float: left;
+    margin-right: 10rpx;
+}
+@keyframes switch {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(0.8);
+    }
+}
+.textBtn {
+    color: #cd3737;
+    font-size: 1.2rem;
+    font-weight: 1000;
+    display: block;
+    float: left;
+}
+
+.mainBox {
+    height: 600rpx;
+    width: 700rpx;
+    position: absolute;
+    bottom: 150rpx;
+    transform: translateX(-50%);
+    left: 50%;
+}
+.mainBox image {
+    height: 100%;
+    width: 100%;
+}
+.textTitle {
+    height: 80rpx;
+    position: absolute;
+    bottom: 460rpx;
+    left: 40rpx;
+}
+.textTitle image {
+    height: 80rpx;
+    width: 80rpx;
+    display: block;
+    float: left;
+}
+.textTitle text {
+    height: 80rpx;
+    width: 200rpx;
+    line-height: 80rpx;
+    display: block;
+    float: left;
+    margin-left: 20rpx;
+    font-size: 1.2rem;
+    color: #6e3e24;
+}
+.textContent {
+    position: absolute;
+    bottom: 60rpx;
+    left: 40rpx;
+    width: 620rpx;
+}
+.textContent .title {
+    height: 50rpx;
+    display: block;
+    color: #ff5f3a;
+    font-weight: 600;
+}
+.textContent .firstNotice {
+    color: #6e3e24;
+    display: block;
+}
+.secondNotice, .secondText1, .thirdNotice {
+    color: #6e3e24;
+}
+.secondText {
+    color: #ff5f3a;
+    font-weight: 600;
+}

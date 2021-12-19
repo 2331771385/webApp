@@ -1,0 +1,20 @@
+<view class="schoolContainer">
+    <view class="header">
+        <view class="backIcon">
+            <image class="backImg" src="{{backIcon}}" bindtap="gotoBack"> 
+            </image>
+        </view>
+        <view class="header-title">开学季</view>
+    </view>
+
+    <!-- 展示当前校区的手绘图片 -->
+    <view class='picBox'>
+        <image class="imgBox" src="{{selectedPic}}"></image>
+    </view>
+
+    <view class='startBtn'>
+        <button class="scaleBtn" bindtap="goToMain">
+            <text class='textBtn'>开始了解</text>
+        </button>
+    </view>
+</view>

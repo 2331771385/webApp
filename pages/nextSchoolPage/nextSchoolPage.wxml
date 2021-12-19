@@ -1,0 +1,40 @@
+<view class="schoolContainer">
+    <view class="header">
+        <view class="backIcon">
+            <image class="backImg" src="{{backIcon}}" bindtap="gotoBack"> 
+            </image>
+        </view>
+        <view class="header-title">开学季</view>
+    </view>
+
+    <!-- 展示当前校区的手绘图片 -->
+    <view class='picBox'>
+        <image class="imgBox" src="{{selectedPic}}"></image>
+    </view>
+
+
+    <view class='mainBox'>
+        <image src="{{mainText}}"></image>
+        <view class='textTitle'>
+            <image src="{{selectedPicTitle}}"></image>
+            <text>团橘</text>
+        </view>
+        <view class='textContent'>
+            <text class='title'>初入山大，你可能需要注意这些报到事项：</text>
+            <text class='firstNotice'>{{firstNotice}}</text>
+            <view>
+                <text class='secondNotice'>{{secondNotice}}</text>
+                <text class='secondText'>{{secondText}}</text>
+                <text class='secondText1'>{{secondText1}}</text>
+            </view>
+            <text class='thirdNotice'>{{thirdNotice}}</text>
+        </view>
+    </view>
+
+    <view class='startBtn' bindtap="goToMain">
+        <view class="scaleBtn" >
+            <image src="{{point}}"></image>
+            <text class='textBtn'>点击继续</text>
+        </view>
+    </view>
+</view>
