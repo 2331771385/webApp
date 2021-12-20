@@ -69,7 +69,7 @@ Page({
     })
   },
   goToMain() {
-    wx.navigateTo({
+    wx.redirectTo({
       url: `/pages/nextSchoolPage/nextSchoolPage?campusId=${this.data.campusId}&campusName=${this.data.campusName}`
     })
   }

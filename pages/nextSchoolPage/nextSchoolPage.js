@@ -69,12 +69,12 @@ Page({
     });
   },
   gotoBack() {
-    wx.navigateTo({
+    wx.redirectTo({
       url: `/pages/schoolMain/schoolMain?campusId=${this.data.campusId}&campusName=${this.data.campusName}`
     })
   },
   goToMain() {
-    wx.navigateTo({
+    wx.redirectTo({
       url: `/pages/schoolPoint/schoolPoint?campusId=${this.data.campusId}&campusName=${this.data.campusName}`
     })
   }

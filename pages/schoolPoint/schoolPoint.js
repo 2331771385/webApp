@@ -64,12 +64,12 @@ Page({
     });
   },
   gotoBack() {
-    wx.navigateTo({
+    wx.redirectTo({
       url: `/pages/nextSchoolPage/nextSchoolPage?campusId=${this.data.campusId}&campusName=${this.data.campusName}`
     })
   },
   goToMain() {
-    wx.navigateTo({
+    wx.redirectTo({
       url: `/pages/goSchoolPage/goSchoolPage?campusId=${this.data.campusId}&keyWord=报到&campusName=${this.data.campusName}`
     })
   }

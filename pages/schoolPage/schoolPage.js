@@ -65,7 +65,7 @@ Page({
     })
   },
   goToMain() {
-    wx.navigateTo({
+    wx.redirectTo({
       url: `/pages/schoolMain/schoolMain?campusId=${this.data.campusId}&campusName=${this.data.campusName}`
     })
   }

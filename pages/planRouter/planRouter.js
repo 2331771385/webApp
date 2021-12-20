@@ -79,6 +79,7 @@ Page({
             longitude: longitude
           },
           success: function (res) {
+            
             self.setData({
               latitude: latitude,
               longitude: longitude,
@@ -92,7 +93,20 @@ Page({
                 iconPath: '../../common/img/iconqidian.png',
                 // iconPath: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/iconqidian.png'
               }]
-            })
+            });
+            self.mapCtx.includePoints({
+              padding: [40, 20, 40, 20],
+              points: [
+                {
+                  latitude: latitude,
+                  longitude: longitude
+                },
+                {
+                  latitude: lat,
+                  longitude: lng
+                }
+              ]
+            });
             // 调用接口
             wx.hideLoading();
             self.getSearchPath();

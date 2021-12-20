@@ -66,6 +66,7 @@ Page({
         desc: '必须授权成功后才能进行留言',
         success(res) {
           app.globalData.userInfo = res.userInfo;
+          console.log(res.userInfo);
           // self.sendSuccess();
         },
         fail(err) {
