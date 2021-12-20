@@ -2,6 +2,7 @@ const app = getApp();
 Page({
   data: {
     campusId: null,
+    campusName: '',
     selectedPic: '../../common/img/main_bg.jpg', //页面跳转的连接，包含参数的拼接
     backIcon: '../../common/img/left.png',
     mainText: '../../common/img/2.png',
@@ -44,9 +45,10 @@ Page({
     baseText: '学校按照院系住宿远近，已提前设置好报到地点。团橘已帮你整理好了，快来看看你在哪里报到吧！'
   },
   onLoad(options) {
-    let campusId = 1;
+    // let campusId = 1;
 
-    // let campusId = options.campusId;
+    let campusId = options.campusId;
+    let campusName = options.campusName;
     let picList = this.data.imgList;
     for(let i = 0; i < picList.length; i++) {
       if (picList[i].id == campusId) {
@@ -57,17 +59,18 @@ Page({
       }
     }
     this.setData({
-      campusId: campusId
+      campusId: campusId,
+      campusName: campusName
     });
   },
   gotoBack() {
-    wx.navigateBack({
-      delta: 1
-    });
+    wx.navigateTo({
+      url: `/pages/nextSchoolPage/nextSchoolPage?campusId=${this.data.campusId}&campusName=${this.data.campusName}`
+    })
   },
   goToMain() {
     wx.navigateTo({
-      url: `/pages/goSchoolPage/goSchoolPage?campusId=${this.data.campusId}&keyWord=报到`
+      url: `/pages/goSchoolPage/goSchoolPage?campusId=${this.data.campusId}&keyWord=报到&campusName=${this.data.campusName}`
     })
   }
 })

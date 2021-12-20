@@ -67,13 +67,13 @@ Page({
     ],
     imgs2: [
       {
-        id: 8,
+        id: 7,
         label: '威海校区',
         value: '../../common/img/pic-weihai.jpg'
         // value: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/pic-weihai.jpg'
       },
       {
-        id: 7,
+        id: 8,
         label: '青岛校区',
         value: '../../common/img/pic-qingdao.jpg'
         // value: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/pic-qingdao.jpg'

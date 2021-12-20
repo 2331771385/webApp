@@ -41,10 +41,11 @@ Page({
     backIcon: '../../common/img/left.png',
   },
   onLoad(options) {
-    let campusId = 1;
+    // let campusId = 1;
 
-    // let campusId = options.campusId;
+    let campusId = options.campusId;
     let campusName = options.campusName;
+    console.log(campusName);
     let selectPicList = this.data.selectPicList;
     for(let i = 0; i < selectPicList.length; i++) {
       if (selectPicList[i].id == campusId) {
@@ -57,13 +58,15 @@ Page({
     };
   },
   gotoBack() {
-    wx.navigateBack({
-      delta: 1
-    });
+    let campusId = this.data.campusId;
+    let campusName = this.data.campusName;
+    wx.redirectTo({
+      url: `/pages/out/out?campusId=${campusId}&campusName=${campusName}`
+    })
   },
   goToMain() {
     wx.navigateTo({
-      url: `/pages/schoolMain/schoolMain?campusId=${this.data.campusId}`
+      url: `/pages/schoolMain/schoolMain?campusId=${this.data.campusId}&campusName=${this.data.campusName}`
     })
   }
 })

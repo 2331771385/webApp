@@ -2,6 +2,7 @@ const app = getApp();
 Page({
   data: {
     campusId: null,
+    campusName: '',
     selectedPic: '../../common/img/main_bg.jpg', //页面跳转的连接，包含参数的拼接
     backIcon: '../../common/img/left.png',
     mainText: '../../common/img/main2.png',
@@ -49,9 +50,10 @@ Page({
     baseText: '新主人你好！我是山大的“神兽”——小团橘。今天团橘会陪你度过奇妙的开学之旅，了解报道地点和超精彩的大学生活，快跟上团橘的步伐吧！'
   },
   onLoad(options) {
-    let campusId = 1;
+    // let campusId = 1;
 
-    // let campusId = options.campusId;
+    let campusId = options.campusId;
+    let campusName = options.campusName;
     let picList = this.data.imgList;
     for(let i = 0; i < picList.length; i++) {
       if (picList[i].id == campusId) {
@@ -62,17 +64,18 @@ Page({
       }
     }
     this.setData({
-      campusId: campusId
+      campusId: campusId,
+      campusName: campusName
     });
   },
   gotoBack() {
-    wx.navigateBack({
-      delta: 1
-    });
+    wx.navigateTo({
+      url: `/pages/schoolMain/schoolMain?campusId=${this.data.campusId}&campusName=${this.data.campusName}`
+    })
   },
   goToMain() {
     wx.navigateTo({
-      url: `/pages/schoolPoint/schoolPoint?campusId=${this.data.campusId}`
+      url: `/pages/schoolPoint/schoolPoint?campusId=${this.data.campusId}&campusName=${this.data.campusName}`
     })
   }
 })
