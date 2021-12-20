@@ -67,7 +67,7 @@ Page({
   },
   goToMain() {
     wx.navigateTo({
-      // url: `/pages/nextSchoolPage/nextSchoolPage?campusId=${this.data.campusId}`
+      url: `/pages/goSchoolPage/goSchoolPage?campusId=${this.data.campusId}&keyWord=报到`
     })
   }
 })

@@ -1,0 +1,1 @@
+<web-view class="mapContainer" src="{{url}}"></web-view>
