@@ -3,16 +3,12 @@ Page({
   data: {
     msgList: [],
     poiName: '西门',
-    backIcon: '../../common/img/back1.png',
-    line: '../../common/img/line.png',
-    colleaps: '../../common/img/colleaps.png',
-    isColleaps: '../../common/img/up.png',
-    
-
-    // backIcon: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/back1.png',
-    // line: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/line.png',
-    // colleaps: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/colleaps.png',
-    // isColleaps: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/up.png',
+    campusId: '',
+    poiId: '',
+    backIcon: 'http://116.62.20.146:7788/img/back1.png',
+    line: 'http://116.62.20.146:7788/img/line.png',
+    colleaps: 'http://116.62.20.146:7788/img/colleaps.png',
+    isColleaps: 'http://116.62.20.146:7788/img/up.png',
     
     // 点击输入框弹起键盘
     statsuBarHeight: app.globalData.statsuBarHeight,
@@ -30,9 +26,12 @@ Page({
 
   onLoad(options) {
     this.setData({
+      campusId: options.campusId,
+      poiId: options.poiId,
       poiName: options.poiName,
       msgList: app.globalData.msgList
     });
+    // this.getTalkList(options.campusId, options.poiId);
     this.setChatListHeight();
     wx.onKeyboardHeightChange(res => { //监听键盘高度变化
       this.setData({
@@ -43,6 +42,56 @@ Page({
     });
   },
 
+  // 获得位置点留言信息
+  getTalkList(campusId, poiId) {
+    wx.request({
+      url: 'http://116.62.20.146:9800/xydt_sys/getTalkList',
+      data: {
+        campusID: campusId,
+        poiID: poiId
+      },
+      header: {
+        'content-type':'application/json'
+      },
+      method: 'GET',
+      success: (result)=>{
+        if (result.data.length) {
+          let msgList = result.data;
+          for(let i = 0; i < msgList.length; i++) {
+            let timer = this.transformTimestamp(msgList[i].msgTimer);
+            msgList[i].msgTimer = timer;
+            msgList[i].isClick = false;
+            if (msgList[i].children && msgList[i].children.length) {
+              for(let j = 0; j < msgList[i].children.length; j++) {
+                let timer1 = this.transformTimestamp(msgList[i].children[j].msgTimer);
+                msgList[i].children[j].msgTimer = timer1;
+              }
+            }
+          }
+          this.setData({
+            msgList: msgList
+          });
+          app.globalData.msgList = msgList;
+        }
+      },
+      fail: (err)=>{
+        console.log(err);
+      }
+    });
+  },
+
+  // 转换标准时间
+  transformTimestamp(timestamp) {
+    const date=new Date(timestamp)
+    const Y = date.getFullYear() + '-';
+    const M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
+    const D = (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) + '  ';
+    const h = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':';
+    const m = (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes());
+    // const s = (date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds()); // 秒
+    const dateString = Y + M + D + h + m;
+    return dateString;
+  },
 
   setChatListHeight() {
     this.setData({
@@ -95,30 +144,54 @@ Page({
     let messageList = this.data.msgList;
     let currentTime = this.getCurrentTime();
     let currentUser = app.globalData.userInfo;
-    if (this.data.isAnswer) {
-      let currentParentId = this.data.currentParent;
-      for(let i = 0; i < messageList.length; i++) {
-        if (messageList[i].id == currentParentId) {
-          if (!messageList[i].hasOwnProperty('children')) {
-            messageList[i].children = [];
-          }
-          messageList[i].children.push({
-            msgImg: currentUser.avatarUrl, // 留言者的微信头像
-            msgName: currentUser.nickName, //留言者的名称
-            msgDes: curMessage, //留言描述
-            msgTimer: currentTime
-          })
-        }
+    // if (this.data.isAnswer) {
+    //   let currentParentId = this.data.currentParent;
+    //   for(let i = 0; i < messageList.length; i++) {
+    //     if (messageList[i].id == currentParentId) {
+    //       if (!messageList[i].hasOwnProperty('children')) {
+    //         messageList[i].children = [];
+    //       }
+    //       messageList[i].children.push({
+    //         msgImg: currentUser.avatarUrl, // 留言者的微信头像
+    //         msgName: currentUser.nickName, //留言者的名称
+    //         msgDes: curMessage, //留言描述
+    //         msgTimer: currentTime
+    //       })
+    //     }
+    //   }
+    // } else {
+    //   messageList.unshift({
+    //     id: messageList.length + 1,
+    //     msgImg: currentUser.avatarUrl, // 留言者的微信头像
+    //     msgName: currentUser.nickName, //留言者的名称
+    //     msgDes: this.data.curMessage, //留言描述
+    //     msgTimer: currentTime
+    //   });
+    // }
+    wx.request({
+      url: 'http://116.62.20.146:9800/xydt_sys/saveTalk',
+      data: {
+        campusID: this.data.campusId,
+        poiID: this.data.poiId,
+        parentId: this.data.currentParent,
+        msgImg: currentUser.avatarUrl,
+        msgName: currentUser.nickName,
+        msgDes: curMessage
+      },
+      header: {
+        'content-type':'application/json'
+      },
+      method: 'POST',
+      success: (result)=>{
+        wx.showToast({
+          title: '添加成功'
+        });
+        this.getTalkList(this.data.campusId, this.data.poiId)
+      },
+      fail: (err)=>{
+        console.log(err);
       }
-    } else {
-      messageList.unshift({
-        id: messageList.length + 1,
-        msgImg: currentUser.avatarUrl, // 留言者的微信头像
-        msgName: currentUser.nickName, //留言者的名称
-        msgDes: this.data.curMessage, //留言描述
-        msgTimer: currentTime
-      });
-    }
+    });
     
     this.setData({
       isAnswer: false,
@@ -168,12 +241,20 @@ Page({
   getAnswer(e) {
     let msg = e.currentTarget.dataset.set;
     let self = this;
+    let data = this.data.msgList;
+    let currentParent;
+    for(let i = 0; i < data.length; i++) {
+      if (data[i].id == msg.id) {
+        currentParent = msg.id;
+        break;
+      }
+    }
     if (app.globalData.userInfo != null) {
       this.setData({
         placeholder: `回复${msg.msgName}`,
         focus: 'auto',
         isAnswer: true,
-        currentParent: msg.id
+        currentParent: currentParent
       });
       return;
     };
@@ -184,7 +265,7 @@ Page({
           placeholder: `回复${msg.msgName}`,
           focus: 'auto',
           isAnswer: true,
-          currentParent: msg.id
+          currentParent: currentParent
         });
         app.globalData.userInfo = res.userInfo;
       },

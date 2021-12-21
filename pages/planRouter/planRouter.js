@@ -18,8 +18,7 @@ Page({
     suggestion: [],
     selectedId: 0,
     keyword: '我的位置',
-    backIcon: '../../common/img/back1.png',
-    // backIcon: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/back1.png', // 待返回的图片
+    backIcon: 'http://116.62.20.146:7788/img/back1.png',
     locationData: '',
     lat: null,
     lng: null,
@@ -90,8 +89,7 @@ Page({
                 longitude: longitude,
                 width: 32,
                 height:32,
-                iconPath: '../../common/img/iconqidian.png',
-                // iconPath: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/iconqidian.png'
+                iconPath: 'http://116.62.20.146:7788/img/iconqidian.png',
               }]
             });
             self.mapCtx.includePoints({
@@ -174,7 +172,7 @@ Page({
        longitude: endLng,
        width: 32,
        height: 32,
-       iconPath: '../../common/img/zhongdian.png'
+       iconPath: 'http://116.62.20.146:7788/img/zhongdian.png'
       //  iconPath: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/zhongdian.png'
      })
      let _this = this;
@@ -245,8 +243,7 @@ Page({
               longitude: longitude,
               width: 32,
               height:32,
-              iconPath: '../../common/img/iconqidian.png'
-              // iconPath: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/iconqidian.png'
+              iconPath: 'http://116.62.20.146:7788/img/iconqidian.png'
             })
             self.setData({
               latitude: latitude,

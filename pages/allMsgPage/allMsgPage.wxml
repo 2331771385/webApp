@@ -8,7 +8,7 @@
     </view>
     <view class="content-saying" bindtap="hideInput">
         <view class="msgListSty">
-            <view wx:for="{{msgList}}" wx:key='id' class='com-sItem'>
+            <view wx:for="{{msgList}}" wx:if="{{msgList.length}}" wx:key='id' class='com-sItem'>
                 <view class="msg-img">
                     <view class="msg-img-left">
                         <image class="left-img" src="{{item.msgImg}}">
@@ -63,6 +63,9 @@
                         </view>
                     </view>
                 </view>
+            </view>
+            <view class='notTalk' wx:if="{{!msgList.length}}">
+                <text>暂无评论！</text>
             </view>
         </view>
     </view>

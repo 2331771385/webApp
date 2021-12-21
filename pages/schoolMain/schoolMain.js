@@ -3,42 +3,42 @@ Page({
   data: {
     campusId: null,
     campusName: '',
-    selectedPic: '../../common/img/main_bg.jpg', //页面跳转的连接，包含参数的拼接
-    backIcon: '../../common/img/left.png',
-    mainText: '../../common/img/2.png',
-    point: '../../common/img/point.png',
+    selectedPic: 'http://116.62.20.146:7788/img/main_bg.jpg', //页面跳转的连接，包含参数的拼接
+    backIcon: 'http://116.62.20.146:7788/img/left.png',
+    mainText: 'http://116.62.20.146:7788/img/2.png',
+    point: 'http://116.62.20.146:7788/img/point.png',
     imgList: [
       {
         id: 1,
-        picName: '../../common/img/logo_zhongxin.png'
+        picName: 'http://116.62.20.146:7788/img/logo_zhongxin.png'
       },
       {
         id: 2,
-        picName: '../../common/img/logo_hongjialou.png'
+        picName: 'http://116.62.20.146:7788/img/logo_hongjialou.png'
       },
       {
         id: 3,
-        picName: '../../common/img/logo_qianfoshan.png'
+        picName: 'http://116.62.20.146:7788/img/logo_qianfoshan.png'
       },
       {
         id: 4,
-        picName: '../../common/img/logo_baotuquan.png'
+        picName: 'http://116.62.20.146:7788/img/logo_baotuquan.png'
       },
       {
         id: 5,
-        picName: '../../common/img/logo_xinglongshan.png'
+        picName: 'http://116.62.20.146:7788/img/logo_xinglongshan.png'
       },
       {
         id: 6,
-        picName: '../../common/img/logo_ruanjianyuan.png'
+        picName: 'http://116.62.20.146:7788/img/logo_ruanjianyuan.png'
       },
       {
         id: 7,
-        picName: '../../common/img/logo_weihai.png'
+        picName: 'http://116.62.20.146:7788/img/logo_weihai.png'
       },
       {
         id: 8,
-        picName: '../../common/img/logo_qingdao.png'
+        picName: 'http://116.62.20.146:7788/img/logo_qingdao.png'
       }
     ],
     selectedPicTitle: '',

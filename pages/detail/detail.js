@@ -5,8 +5,7 @@ Page({
     keyWord: '',
     campusId: '',
     campusName: '',
-    backIcon: '../../common/img/back1.png',
-    // backIcon: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/back1.png',
+    backIcon: 'http://116.62.20.146:7788/img/back1.png',
     toolBarList: [
       {
         id: 0,
@@ -154,43 +153,37 @@ Page({
         id: 1,
         longitude: 117.060109, // 经度
         latitude: 36.675668,
-        markerImg: '../../common/img/3d-zhongxin3.png',
-        // markerImg: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/3d-zhongxin3.png'
+        markerImg: 'http://116.62.20.146:7788/img/3d-zhongxin3.png',
       },
       {
         id: 6,
         longitude: 117.143552,
         latitude: 36.666811,
-        markerImg: '../../common/img/3d-software.png',
-        // markerImg: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/3d-software.png'
+        markerImg: 'http://116.62.20.146:7788/img/3d-software.png',
       },
       {
         id: 2,
         longitude: 117.068195,
         latitude: 36.687395,
-        markerImg: '../../common/img/3d-hongjialou1.png',
-        // markerImg: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/3d-hongjialou1.png'
+        markerImg: 'http://116.62.20.146:7788/img/3d-hongjialou1.png',
       },
       {
         id: 5,
         longitude: 117.028551,
         latitude: 36.651162,
-        markerImg: '../../common/img/3d-qianfoshan3.png',
-        // markerImg: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/3d-qianfoshan3.png'
+        markerImg: 'http://116.62.20.146:7788/img/3d-qianfoshan3.png',
       },
       {
         id: 4,
         longitude: 117.050303,
         latitude: 36.601063,
-        markerImg: '../../common/img/3d-xinglongshan.png',
-        // markerImg: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/3d-xinglongshan.png'
+        markerImg: 'http://116.62.20.146:7788/img/3d-xinglongshan.png',
       },
       {
         id: 3,
         longitude: 117.018274,
         latitude: 36.652161,
-        markerImg: '../../common/img/3d-baotuquan3.png',
-        // markerImg: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/3d-baotuquan3.png'
+        markerImg: 'http://116.62.20.146:7788/img/3d-baotuquan3.png',
       },
       {
         id: 9,
@@ -201,15 +194,13 @@ Page({
         id: 7,
         longitude: 120.688292,
         latitude: 36.365274,
-        markerImg: '../../common/img/3d-qingdao3.png',
-        // markerImg: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/3d-qingdao3.png'
+        markerImg: 'http://116.62.20.146:7788/img/3d-qingdao3.png',
       },
       {
         id: 8,
         longitude: 122.058225,
         latitude: 37.532313,
-        markerImg: '../../common/img/3d-weihai5.png',
-        // markerImg: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/3d-weihai5.png'
+        markerImg: 'http://116.62.20.146:7788/img/3d-weihai5.png',
       }
     ],
     detailShow: true,
@@ -217,16 +208,11 @@ Page({
     markers: [],
     longitude: null, //经度
     latitude: null,
-    picPath: '../../common/img/path.png',
-    picStudy: '../../common/img/study.png',
-    picSj: '../../common/img/shijing.png',
-    picShare: '../../common/img/share.png',
-    picGo: '../../common/img/go.png',
-    // picSj: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/shijing.png',
-    // picShare: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/share.png',
-    // picGo: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/go.png',
-    // picStudy: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/study.png',
-    // picPath: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/path.png',
+    picPath: 'http://116.62.20.146:7788/img/path.png',
+    picStudy: 'http://116.62.20.146:7788/img/study.png',
+    picSj: 'http://116.62.20.146:7788/img/shijing.png',
+    picShare: 'http://116.62.20.146:7788/img/share.png',
+    picGo: 'http://116.62.20.146:7788/img/go.png',
     dataList: [], // 调用接口返回的所有的数组
   },
   /**

@@ -184,3 +184,7 @@
 /* .msgContainer {
     margin-top: 200rpx;
 } */
+.notTalk {
+    margin-top: 100px;
+    text-align: center;
+}

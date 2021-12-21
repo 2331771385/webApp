@@ -3,8 +3,7 @@ var qqmapsdk;
 const app = getApp();
 Page({
   data: {
-    backIcon: '../../common/img/back1.png',
-    // backIcon: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/back1.png',
+    backIcon: 'http://116.62.20.146:7788/img/back1.png',
     locationData: {},
     pinUrls:[],
     indicatorDots: false,
@@ -16,36 +15,31 @@ Page({
     bottomOpt: [
       {
         id: 1,
-        optImg: '../../common/img/share.png',
-        // optImg: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/share.png',
+        optImg: 'http://116.62.20.146:7788/img/share.png',
         optName: '分享',
         showPicture: true
       },
       {
         id: 2,
-        optImg: '../../common/img/shoucang.png',
-        // optImg: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/shoucang.png',
+        optImg: 'http://116.62.20.146:7788/img/shoucang.png',
         optName: '收藏',
         showPicture: true
       },
       {
         id: 3,
-        optImg: '../../common/img/edit.png',
-        // optImg: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/edit.png',
+        optImg: 'http://116.62.20.146:7788/img/edit.png',
         optName: '留言',
         showPicture: true
       },
       {
         id: 4,
-        optImg: '../../common/img/shijing.png',
-        // optImg: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/shijing.png',
+        optImg: 'http://116.62.20.146:7788/img/shijing.png',
         optName: '全景',
         showPicture: true
       },
       {
         id: 5,
-        optImg: '../../common/img/go.png',
-        // optImg: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/go.png',
+        optImg: 'http://116.62.20.146:7788/img/go.png',
         optName: '前往',
         showPicture: true
       }
@@ -56,13 +50,9 @@ Page({
     id: '',
     jobStorage: [],
     jobId: '',
-    line: '../../common/img/line.png',
-    colleaps: '../../common/img/colleaps.png',
-    isColleaps: '../../common/img/up.png',
-
-    // line: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/line.png',
-    // colleaps: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/colleaps.png',
-    // isColleaps: 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/up.png',
+    line: 'http://116.62.20.146:7788/img/line.png',
+    colleaps: 'http://116.62.20.146:7788/colleaps.png',
+    isColleaps: 'http://116.62.20.146:7788/img/up.png',
     msgBox: false, // 控制软键盘的显示与隐藏
 
     statsuBarHeight: app.globalData.statsuBarHeight,
@@ -92,6 +82,7 @@ Page({
     });
     let self = this;
     let data = JSON.parse(options.current);
+    this.getTalkList(data.campusID, data.PoiID);
 
     let syncData = wx.getStorageSync('jobData');
     for(let i = 0; i < syncData.length; i++) {
@@ -99,8 +90,7 @@ Page({
         self.setData({
           isClick: true,
           'bottomOpt[1].optName': '已收藏',
-          'bottomOpt[1].optImg': '../../common/img/mysc.png',
-          // 'bottomOpt[1].optImg': 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/mysc.png'
+          'bottomOpt[1].optImg': 'http://116.62.20.146:7788/img/mysc.png',
         })
         break;
       }
@@ -171,12 +161,69 @@ Page({
 
     this.setData({
       locationData: data,
-      msgList1: app.globalData.msgList,
+      // msgList1: app.globalData.msgList,
       pinUrls: pinUrls,
       autoplay: true,
       indicatorDots: true,
       bottomOpt: bottomOpt
     });   
+  },
+
+
+  // 获得位置点留言信息
+  getTalkList(campusId, poiId) {
+    wx.request({
+      url: 'http://116.62.20.146:9800/xydt_sys/getTalkList',
+      data: {
+        campusID: campusId,
+        poiID: poiId
+      },
+      header: {
+        'content-type':'application/json'
+      },
+      method: 'GET',
+      success: (result)=>{
+        /**
+         * 在这里可以拿到接口中的数据
+         * 可以显示在页面上
+         */
+        if (result.data.length) {
+          let msgList = result.data;
+          for(let i = 0; i < msgList.length; i++) {
+            let timer = this.transformTimestamp(msgList[i].msgTimer);
+            msgList[i].msgTimer = timer;
+            msgList[i].isClick = false;
+            if (msgList[i].children && msgList[i].children.length) {
+              for(let j = 0; j < msgList[i].children.length; j++) {
+                let timer1 = this.transformTimestamp(msgList[i].children[j].msgTimer);
+                msgList[i].children[j].msgTimer = timer1;
+              }
+            }
+          }
+          this.setData({
+            msgList1: msgList
+          });
+          app.globalData.msgList = msgList;
+          
+        }
+      },
+      fail: (err)=>{
+        console.log(err);
+      }
+    });
+  },
+
+  // 转换标准时间
+  transformTimestamp(timestamp) {
+    const date=new Date(timestamp)
+    const Y = date.getFullYear() + '-';
+    const M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
+    const D = (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) + '  ';
+    const h = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':';
+    const m = (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes());
+    // const s = (date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds()); // 秒
+    const dateString = Y + M + D + h + m;
+    return dateString;
   },
 
 
@@ -199,6 +246,7 @@ Page({
 
   send() {
     let curMessage = this.data.curMessage;
+    let currentData = this.data.locationData;
     if (curMessage.trim() === "") {
       wx.showToast({
         title: '请输入聊天内容',
@@ -208,32 +256,56 @@ Page({
       return;
     }
     let messageList = this.data.msgList1;
-    let currentTime = this.getCurrentTime();
+    // let currentTime = this.getCurrentTime();
     let currentUser = app.globalData.userInfo;
-    if (this.data.isAnswer) {
-      let currentParentId = this.data.currentParent;
-      for(let i = 0; i < messageList.length; i++) {
-        if (messageList[i].id == currentParentId) {
-          if (!messageList[i].hasOwnProperty('children')) {
-            messageList[i].children = [];
-          }
-          messageList[i].children.push({
-            msgImg: currentUser.avatarUrl, // 留言者的微信头像
-            msgName: currentUser.nickName, //留言者的名称
-            msgDes: curMessage, //留言描述
-            msgTimer: currentTime
-          })
-        }
+    // if (this.data.isAnswer) {
+    //   let currentParentId = this.data.currentParent;
+    //   for(let i = 0; i < messageList.length; i++) {
+    //     if (messageList[i].id == currentParentId) {
+    //       if (!messageList[i].hasOwnProperty('children')) {
+    //         messageList[i].children = [];
+    //       }
+    //       messageList[i].children.push({
+    //         msgImg: currentUser.avatarUrl, // 留言者的微信头像
+    //         msgName: currentUser.nickName, //留言者的名称
+    //         msgDes: curMessage, //留言描述
+    //         msgTimer: currentTime
+    //       })
+    //     }
+    //   }
+    // } else {
+    //   messageList.unshift({
+    //     id: messageList.length + 1,
+    //     msgImg: currentUser.avatarUrl, // 留言者的微信头像
+    //     msgName: currentUser.nickName, //留言者的名称
+    //     msgDes: curMessage, //留言描述
+    //     msgTimer: currentTime
+    //   });
+    // }
+    wx.request({
+      url: 'http://116.62.20.146:9800/xydt_sys/saveTalk',
+      data: {
+        campusID: currentData.campusID,
+        poiID: currentData.PoiID,
+        parentId: this.data.currentParent,
+        msgImg: currentUser.avatarUrl,
+        msgName: currentUser.nickName,
+        msgDes: curMessage
+      },
+      header: {
+        'content-type':'application/json'
+      },
+      method: 'POST',
+      success: (result)=>{
+        wx.showToast({
+          title: '添加成功'
+        });
+        this.getTalkList(currentData.campusID, currentData.PoiID)
+      },
+      fail: (err)=>{
+        console.log(err);
       }
-    } else {
-      messageList.unshift({
-        id: messageList.length + 1,
-        msgImg: currentUser.avatarUrl, // 留言者的微信头像
-        msgName: currentUser.nickName, //留言者的名称
-        msgDes: curMessage, //留言描述
-        msgTimer: currentTime
-      });
-    }
+    });
     
     this.setData({
       isAnswer: false,
@@ -255,9 +327,6 @@ Page({
     let currentTime = year + '-' + month + '-' + date + ' ' + hours + ':' + second;
     return currentTime;
   },
-
-
-
 
   // 点击展开或者收起评论
   hasColleaps(event) {
@@ -299,8 +368,10 @@ Page({
   // 跳转到所有的留言界面
   gotoAllMsg() {
     let poiName = this.data.locationData.PoiName;
+    let campusId = this.data.locationData.campusID;
+    let poiId = this.data.locationData.PoiID;
     wx.navigateTo({
-      url: `/pages/allMsgPage/allMsgPage?poiName=${poiName}`
+      url: `/pages/allMsgPage/allMsgPage?poiName=${poiName}&campusId=${campusId}&poiId=${poiId}`
     })
   },
 
@@ -319,14 +390,12 @@ Page({
           if (selectedData[i].optName == '收藏') {
             self.setData({
               'bottomOpt[1].optName': '已收藏',
-              'bottomOpt[1].optImg': '../../common/img/mysc.png'
-              // 'bottomOpt[1].optImg': 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/mysc.png'
+              'bottomOpt[1].optImg': 'http://116.62.20.146:7788/img/mysc.png'
             })
           } else {
             self.setData({
               'bottomOpt[1].optName': '收藏',
-              'bottomOpt[1].optImg': '../../common/img/shoucang.png'
-              // 'bottomOpt[1].optImg': 'cloud://cloud1-3g64wm0l14fa1f42.636c-cloud1-3g64wm0l14fa1f42-1306847170/img/shoucang.png'
+              'bottomOpt[1].optImg': 'http://116.62.20.146:7788/img/shoucang.png'
             })
           }
           break;
@@ -394,7 +463,9 @@ Page({
     let lat = this.data.locationData.latitude;
     let lng = this.data.locationData.longitude;
     wx.navigateTo({
-      url: `/pages/planRouter/planRouter?endPoint=${endPoint}&lat=${lat}&lng=${lng}`
+      url: `/pages/goRouter/goRouter?endPoint=${endPoint}&lat=${lat}&lng=${lng}`
+
+      // url: `/pages/planRouter/planRouter?endPoint=${endPoint}&lat=${lat}&lng=${lng}`
     })
   },
 
@@ -439,16 +510,25 @@ Page({
   getAnswer(e) {
     let msg = e.currentTarget.dataset.set;
     let self = this;
+    let data = this.data.msgList1;
+    let currentParent;
+    for(let i = 0; i < data.length; i++) {
+      if (data[i].id == msg.id) {
+        currentParent = msg.id;
+        break;
+      }
+    }
     if (app.globalData.userInfo != null) {
       this.setData({
         placeholder: `回复${msg.msgName}`,
         focus: 'auto',
         msgBox: true,
         isAnswer: true,
-        currentParent: msg.id
+        currentParent: currentParent
       });
       return;
     };
+    
     wx.getUserProfile({
       desc: '必须授权成功后才能进行留言',
       success(res) {
@@ -457,7 +537,7 @@ Page({
           focus: 'auto',
           msgBox: true,
           isAnswer: true,
-          currentParent: msg.id
+          currentParent: currentParent
         });
         app.globalData.userInfo = res.userInfo;
       },

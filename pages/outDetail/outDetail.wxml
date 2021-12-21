@@ -36,7 +36,7 @@
                 <text class="title-right" bindtap="gotoAllMsg">查看全部 ></text>
             </view>
             <view class="msgListSty">
-                <view wx:for="{{msgList1}}" wx:key='id' class='com-sItem'  bindtap='setText'>
+                <view wx:for="{{msgList1}}" wx:if="{{msgList1.length}}" wx:key='id' class='com-sItem'  bindtap='setText'>
                     <view class="msg-img">
                         <view class="msg-img-left">
                             <image class="left-img" src="{{item.msgImg}}">
@@ -91,7 +91,9 @@
                             </view>
                         </view>
                     </view>
-
+                </view>
+                <view class='notTalk' wx:if="{{!msgList1.length}}">
+                    <text>暂无评论！</text>
                 </view>
             </view>
         </view>

@@ -1,0 +1,31 @@
+<view class='planContain'>
+  <view class="header">
+      <view class="backIcon">
+          <image class="backImg" src="{{backIcon}}" bindtap="gotoBack"> 
+          </image>
+      </view>
+      <view class="header-title">路径规划</view>
+  </view>
+</view>
+<view class=''>
+    <map id="myMap" 
+        longitude="{{longitude}}" 
+        latitude="{{latitude}}" 
+        scale="{{scale}}"
+        polyline = "{{polyline}}"
+        markers="{{markers}}"
+        bindregionchange="mapChange"
+    >
+    </map>
+</view>
+<view class='endBox'>
+    <view class='endPoint'>
+        <text>{{locationData}}</text>
+    </view>
+    <view class='distance'>
+        <text>距您{{distance}}公里</text>
+    </view>
+    <view class='btn'>
+        <button class='gohere' bindtap="toBus">到这去</button>
+    </view>
+</view>

@@ -1,0 +1,57 @@
+#myMap {
+    height: calc(100vh - 230rpx);
+    width: 100%;
+}
+.header {
+    height: 70rpx;
+    width: 100%;
+    background-color: #9b0d14;
+}
+.backIcon {
+    width: 32rpx;
+    height: 32rpx;
+    float: left;
+    margin-left: 10rpx;
+    margin-top: 15rpx;
+}
+.backImg {
+    width: 32rpx;
+    height: 32rpx;
+}
+.header-title {
+    color: #fff;
+    line-height: 70rpx;
+    font-size: 18px;
+    text-align: center;
+}
+.endBox {
+    position: absolute;
+    bottom: 20px;
+    height: 130rpx;
+    width: 88%;
+    margin-left: 3%;
+    /* background-color: chartreuse; */
+    box-shadow: 2px 2px 6px 3px #909090 ;
+    padding: 10rpx 20rpx;
+    background-color: #fff;
+    z-index: 9999;
+}
+.endPoint {
+    font-size: 1rem;
+    font-weight: 600;
+}
+.distance {
+    font-size: 0.6rem;
+}
+.btn button {
+    padding: 10rpx;
+    margin-left: 70% !important;
+}
+.gohere {
+    width: 100px !important;
+    height: 30px;
+    background-color: blue;
+    border-radius: 45px;
+    font-size: 0.8rem;
+    color: cornsilk;
+}

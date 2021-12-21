@@ -272,3 +272,7 @@
     line-height: 40px;
     margin-left: 5px;
 }
+.notTalk {
+    margin-top: 40px;
+    text-align: center;
+}

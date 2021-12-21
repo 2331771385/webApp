@@ -7,38 +7,38 @@ Page({
     selectPicList: [
       {
         id: 1,
-        picName: '../../common/img/dati_zhongxin3.jpg'
+        picName: 'http://116.62.20.146:7788/img/dati_zhongxin3.jpg'
       },
       {
         id: 2,
-        picName: '../../common/img/dati_hongjialou3.jpg'
+        picName: 'http://116.62.20.146:7788/img/dati_hongjialou3.jpg'
       },
       {
         id: 3,
-        picName: '../../common/img/dati_qianfoshan3.jpg'
+        picName: 'http://116.62.20.146:7788/img/dati_qianfoshan3.jpg'
       },
       {
         id: 4,
-        picName: '../../common/img/dati_baotuquan3.jpg'
+        picName: 'http://116.62.20.146:7788/img/dati_baotuquan3.jpg'
       },
       {
         id: 5,
-        picName: '../../common/img/dati_xinglongshan3.jpg'
+        picName: 'http://116.62.20.146:7788/img/dati_xinglongshan3.jpg'
       },
       {
         id: 6,
-        picName: '../../common/img/dati_ruanjianyuan3.jpg'
+        picName: 'http://116.62.20.146:7788/img/dati_ruanjianyuan3.jpg'
       },
       {
         id: 7,
-        picName: '../../common/img/dati_weihai3.jpg'
+        picName: 'http://116.62.20.146:7788/img/dati_weihai3.jpg'
       },
       {
         id: 8,
-        picName: '../../common/img/dati_qingdao3.jpg'
+        picName: 'http://116.62.20.146:7788/img/dati_qingdao3.jpg'
       }
     ],
-    backIcon: '../../common/img/left.png',
+    backIcon: 'http://116.62.20.146:7788/img/left.png',
   },
   onLoad(options) {
     // let campusId = 1;
