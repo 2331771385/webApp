@@ -151,7 +151,7 @@ Page({
       'longitude': this.data.lng
     });
     wx.navigateTo({
-      url: 'plugin://routePlan/index?key=' + key + '&referer=' + referer + '&endPoint=' + endPoint + '&navigation=1'
+      url: 'plugin://routePlan/index?key=' + key + '&referer=' + referer + '&endPoint=' + endPoint + '&navigation=1&mode=walking'
     });
   }
 })

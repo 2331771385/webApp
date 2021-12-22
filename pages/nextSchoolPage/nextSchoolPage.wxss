@@ -105,7 +105,7 @@
 }
 .textContent {
     position: absolute;
-    bottom: 60rpx;
+    bottom: 40rpx;
     left: 40rpx;
     width: 620rpx;
 }

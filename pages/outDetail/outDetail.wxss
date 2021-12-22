@@ -28,20 +28,26 @@
     width: 100%;
 }
 .content-imgs {
-    height: 530rpx;
+    height: 60vh;
+
+    /* height: 530rpx; */
     width: 100%;
     margin-bottom: 20rpx;
 }
 .content-img {
-    height: 300rpx;
+    height: 40%;
+
+    /* height: 300rpx; */
     width: 100%;
     top: 70rpx;
 }
 .content-des {
-    height: 35%;
-    margin-top: 20rpx;
+    height: 55%;
+
+    /* height: 35%; */
+    margin-top: 2%;
     box-shadow: 2px 2px 6px 3px #909090 ;
-    padding: 0.5rem;
+    padding: 3% 2%;
 }
 .content-saying {
     max-height: 400rpx;
@@ -60,14 +66,17 @@
 }
 .swiper {
     width: 100%;
-    height: 300rpx;
+    height: 100%;
+    box-shadow: 2px 2px 6px 3px #909090 ;
 }
 .swiper-item-one {
     width: 100%;
     height: 300rpx;
 }
 .des-title {
-    height: 25%;
+    /* height: 25%; */
+    height: 10%;
+
     font-size: 1rem;
 }
 .des-distance {
@@ -75,7 +84,8 @@
 }
 .des-content {
     margin-top: 5px;
-    height: 55%;
+    height: 75%;
+    /* height: 55%; */
     font-size: 0.8rem;
     overflow-y: scroll;
     /* overflow: hidden;
@@ -94,7 +104,9 @@
     color: blue;
 }
 .msgListSty {
-    height: 330rpx;
+    height: 170rpx;
+
+    /* height: 330rpx; */
     /* max-height: 87%; */
     margin-top: 10rpx;
     overflow-y: scroll;
@@ -151,7 +163,8 @@
 .content-bottom {
     border-top: 1px solid #6062669e;
     position: fixed;
-    bottom: 0rpx;
+    bottom: 20rpx;
+    /* bottom: 0rpx; */
     height: 70rpx;
     width: 95%;
     display: flex;
@@ -178,7 +191,7 @@
     width: 30px !important;
     padding: 0px;
     border: none;
-    background-color: none;
+    background-color: #fff !important;
     font-weight: unset;
     text-align: left;
 }

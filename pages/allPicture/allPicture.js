@@ -9,7 +9,8 @@ Page({
     this.setData({
       campusID: options.campusId,
       keyWord: options.keyWord,
-      url: `http://localhost:8081/allPicture.html?campusId=${options.campusId}&keyWord=${options.keyWord}`
+      url: `http://116.62.20.146:7788/makeMap/allPicture.html?campusId=${options.campusId}&keyWord=${options.keyWord}`
+      // url: `http://localhost:8081/allPicture.html?campusId=${options.campusId}&keyWord=${options.keyWord}`
     })
   },
 })

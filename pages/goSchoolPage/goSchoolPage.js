@@ -10,12 +10,12 @@ Page({
     let campusId = options.campusId;
     let keyWord = options.keyWord;
     let campusName = options.campusName;
-    console.log(options);
     this.setData({
       campusId: campusId,
       keyWord: keyWord,
       campusName: campusName,
-      url:`http://localhost:8081/goSchool.html?campusId=${campusId}&keyWord=${keyWord}&campusName=${campusName}`
+      url:`http://116.62.20.146:7788/makeMap/goSchool.html?campusId=${campusId}&keyWord=${keyWord}&campusName=${campusName}`
+      // url:`http://localhost:8081/goSchool.html?campusId=${campusId}&keyWord=${keyWord}&campusName=${campusName}`
     });
   },
 })

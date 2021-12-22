@@ -11,8 +11,8 @@ Page({
     this.setData({
       campusId: campusId,
       campusName: campusName,
-      url:`http://localhost:8081/ttt.html?campusId=${campusId}&campusName=${campusName}`
-      // url: `http://localhost:8081/map.html?campusId=${campusId}&campusName=${campusName}`
+      // url:`http://localhost:8081/ttt.html?campusId=${campusId}&campusName=${campusName}`
+      url: `http://116.62.20.146:7788/makeMap/ttt.html?campusId=${campusId}&campusName=${campusName}`
     });
   },
 })

@@ -56,41 +56,16 @@ Page({
       method: 'GET',
       success: (result)=>{
         if (result.data.length) {
-          let msgList = result.data;
-          for(let i = 0; i < msgList.length; i++) {
-            let timer = this.transformTimestamp(msgList[i].msgTimer);
-            msgList[i].msgTimer = timer;
-            msgList[i].isClick = false;
-            if (msgList[i].children && msgList[i].children.length) {
-              for(let j = 0; j < msgList[i].children.length; j++) {
-                let timer1 = this.transformTimestamp(msgList[i].children[j].msgTimer);
-                msgList[i].children[j].msgTimer = timer1;
-              }
-            }
-          }
           this.setData({
-            msgList: msgList
+            msgList: result.data
           });
-          app.globalData.msgList = msgList;
+          app.globalData.msgList = result.data;
         }
       },
       fail: (err)=>{
         console.log(err);
       }
     });
-  },
-
-  // 转换标准时间
-  transformTimestamp(timestamp) {
-    const date=new Date(timestamp)
-    const Y = date.getFullYear() + '-';
-    const M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
-    const D = (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) + '  ';
-    const h = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':';
-    const m = (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes());
-    // const s = (date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds()); // 秒
-    const dateString = Y + M + D + h + m;
-    return dateString;
   },
 
   setChatListHeight() {
@@ -115,8 +90,6 @@ Page({
         desc: '必须授权成功后才能进行留言',
         success(res) {
           app.globalData.userInfo = res.userInfo;
-          console.log(res.userInfo);
-          // self.sendSuccess();
         },
         fail(err) {
           wx.showToast({
@@ -133,6 +106,7 @@ Page({
 
   sendSuccess() {
     let curMessage = this.data.curMessage;
+    let self = this;
     if (curMessage.trim() === "") {
       wx.showToast({
         title: '请输入聊天内容',
@@ -142,38 +116,13 @@ Page({
       return;
     }
     let messageList = this.data.msgList;
-    let currentTime = this.getCurrentTime();
     let currentUser = app.globalData.userInfo;
-    // if (this.data.isAnswer) {
-    //   let currentParentId = this.data.currentParent;
-    //   for(let i = 0; i < messageList.length; i++) {
-    //     if (messageList[i].id == currentParentId) {
-    //       if (!messageList[i].hasOwnProperty('children')) {
-    //         messageList[i].children = [];
-    //       }
-    //       messageList[i].children.push({
-    //         msgImg: currentUser.avatarUrl, // 留言者的微信头像
-    //         msgName: currentUser.nickName, //留言者的名称
-    //         msgDes: curMessage, //留言描述
-    //         msgTimer: currentTime
-    //       })
-    //     }
-    //   }
-    // } else {
-    //   messageList.unshift({
-    //     id: messageList.length + 1,
-    //     msgImg: currentUser.avatarUrl, // 留言者的微信头像
-    //     msgName: currentUser.nickName, //留言者的名称
-    //     msgDes: this.data.curMessage, //留言描述
-    //     msgTimer: currentTime
-    //   });
-    // }
     wx.request({
       url: 'http://116.62.20.146:9800/xydt_sys/saveTalk',
       data: {
         campusID: this.data.campusId,
         poiID: this.data.poiId,
-        parentId: this.data.currentParent,
+        parentId: this.data.currentParent || this.data.poiId,
         msgImg: currentUser.avatarUrl,
         msgName: currentUser.nickName,
         msgDes: curMessage
@@ -184,9 +133,14 @@ Page({
       method: 'POST',
       success: (result)=>{
         wx.showToast({
-          title: '添加成功'
+          title: '添加成功',
+          success: function () {
+            self.setData({
+              focus: false
+            })
+            self.getTalkList(this.data.campusId, this.data.poiId)
+          }
         });
-        this.getTalkList(this.data.campusId, this.data.poiId)
       },
       fail: (err)=>{
         console.log(err);
@@ -200,18 +154,6 @@ Page({
       msgList: messageList
     })
     app.globalData.msgList = this.data.msgList;
-  },
-
-  // 获取当前时间
-  getCurrentTime() {
-    let timer = new Date();
-    let year = timer.getFullYear();
-    let month = timer.getMonth() + 1;
-    let date = timer.getDate();
-    let hours = timer.getHours();
-    let second = timer.getSeconds();
-    let currentTime = year + '-' + month + '-' + date + ' ' + hours + ':' + second;
-    return currentTime;
   },
 
   // 返回到上一页面中

@@ -51,7 +51,7 @@ Page({
     jobStorage: [],
     jobId: '',
     line: 'http://116.62.20.146:7788/img/line.png',
-    colleaps: 'http://116.62.20.146:7788/colleaps.png',
+    colleaps: 'http://116.62.20.146:7788/img/colleaps.png',
     isColleaps: 'http://116.62.20.146:7788/img/up.png',
     msgBox: false, // 控制软键盘的显示与隐藏
 
@@ -123,8 +123,6 @@ Page({
       success(res) {
         const latitude = res.latitude
         const longitude = res.longitude
-        
-        //逆地址解析
         qqmapsdk.reverseGeocoder({
           location: {
             latitude: latitude,
@@ -156,12 +154,10 @@ Page({
         keyboardHeight: res.height
       });
       this.setChatListHeight();
-      // this.scroll2Bottom();
     });
 
     this.setData({
       locationData: data,
-      // msgList1: app.globalData.msgList,
       pinUrls: pinUrls,
       autoplay: true,
       indicatorDots: true,
@@ -183,27 +179,11 @@ Page({
       },
       method: 'GET',
       success: (result)=>{
-        /**
-         * 在这里可以拿到接口中的数据
-         * 可以显示在页面上
-         */
         if (result.data.length) {
-          let msgList = result.data;
-          for(let i = 0; i < msgList.length; i++) {
-            let timer = this.transformTimestamp(msgList[i].msgTimer);
-            msgList[i].msgTimer = timer;
-            msgList[i].isClick = false;
-            if (msgList[i].children && msgList[i].children.length) {
-              for(let j = 0; j < msgList[i].children.length; j++) {
-                let timer1 = this.transformTimestamp(msgList[i].children[j].msgTimer);
-                msgList[i].children[j].msgTimer = timer1;
-              }
-            }
-          }
           this.setData({
-            msgList1: msgList
+            msgList1: result.data
           });
-          app.globalData.msgList = msgList;
+          app.globalData.msgList = result.data;
           
         }
       },
@@ -212,20 +192,6 @@ Page({
       }
     });
   },
-
-  // 转换标准时间
-  transformTimestamp(timestamp) {
-    const date=new Date(timestamp)
-    const Y = date.getFullYear() + '-';
-    const M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
-    const D = (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) + '  ';
-    const h = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':';
-    const m = (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes());
-    // const s = (date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds()); // 秒
-    const dateString = Y + M + D + h + m;
-    return dateString;
-  },
-
 
 
   setChatListHeight() {
@@ -247,6 +213,7 @@ Page({
   send() {
     let curMessage = this.data.curMessage;
     let currentData = this.data.locationData;
+    let self = this;
     if (curMessage.trim() === "") {
       wx.showToast({
         title: '请输入聊天内容',
@@ -256,38 +223,13 @@ Page({
       return;
     }
     let messageList = this.data.msgList1;
-    // let currentTime = this.getCurrentTime();
     let currentUser = app.globalData.userInfo;
-    // if (this.data.isAnswer) {
-    //   let currentParentId = this.data.currentParent;
-    //   for(let i = 0; i < messageList.length; i++) {
-    //     if (messageList[i].id == currentParentId) {
-    //       if (!messageList[i].hasOwnProperty('children')) {
-    //         messageList[i].children = [];
-    //       }
-    //       messageList[i].children.push({
-    //         msgImg: currentUser.avatarUrl, // 留言者的微信头像
-    //         msgName: currentUser.nickName, //留言者的名称
-    //         msgDes: curMessage, //留言描述
-    //         msgTimer: currentTime
-    //       })
-    //     }
-    //   }
-    // } else {
-    //   messageList.unshift({
-    //     id: messageList.length + 1,
-    //     msgImg: currentUser.avatarUrl, // 留言者的微信头像
-    //     msgName: currentUser.nickName, //留言者的名称
-    //     msgDes: curMessage, //留言描述
-    //     msgTimer: currentTime
-    //   });
-    // }
     wx.request({
       url: 'http://116.62.20.146:9800/xydt_sys/saveTalk',
       data: {
         campusID: currentData.campusID,
         poiID: currentData.PoiID,
-        parentId: this.data.currentParent,
+        parentId: this.data.currentParent || currentData.PoiID,
         msgImg: currentUser.avatarUrl,
         msgName: currentUser.nickName,
         msgDes: curMessage
@@ -298,9 +240,14 @@ Page({
       method: 'POST',
       success: (result)=>{
         wx.showToast({
-          title: '添加成功'
+          title: '添加成功',
+          success: function () {
+            self.setData({
+              focus: false
+            })
+            self.getTalkList(currentData.campusID, currentData.PoiID)
+          }
         });
-        this.getTalkList(currentData.campusID, currentData.PoiID)
       },
       fail: (err)=>{
         console.log(err);
@@ -314,18 +261,6 @@ Page({
       msgList1: messageList
     });
     app.globalData.msgList = this.data.msgList1;
-  },
-
-  // 获取当前时间
-  getCurrentTime() {
-    let timer = new Date();
-    let year = timer.getFullYear();
-    let month = timer.getMonth() + 1;
-    let date = timer.getDate();
-    let hours = timer.getHours();
-    let second = timer.getSeconds();
-    let currentTime = year + '-' + month + '-' + date + ' ' + hours + ':' + second;
-    return currentTime;
   },
 
   // 点击展开或者收起评论
