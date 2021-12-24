@@ -179,12 +179,12 @@ Page({
       },
       method: 'GET',
       success: (result)=>{
+        console.log(result.data);
         if (result.data.length) {
           this.setData({
             msgList1: result.data
           });
           app.globalData.msgList = result.data;
-          
         }
       },
       fail: (err)=>{

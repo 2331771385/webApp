@@ -1,0 +1,25 @@
+<!-- index.wxml -->
+<view class='audioPlayer'>
+  <view class='player'>
+    <image src='{{audio.coverImgUrl}}' class='audioBack' mode='aspectFill'></image>
+    <view class='audioControls'>
+      <view class='flex'>
+        <view class='bottom' catchtap='playAudio'>
+          <!-- 按钮 -->
+          <view wx:if="{{backgroundAudio.isPlaying}}">
+            <image src='{{paly}}' />
+          </view>
+          <view wx:else>
+            <image src='{{pause}}' />
+          </view>
+        </view>
+        <view class='slider'>
+          <slider bindchange='dragAudioSlider' activeColor='red' block-size="12" value='{{backgroundAudio.progress}}' />
+        </view>
+        <view class='time'>
+          {{backgroundAudio.currentDurationTime||'00:00'}}/{{backgroundAudio.durationTime||'00:00'}}
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,6 +1,6 @@
 {
   "pages": [
-    
+    "pages/voicePage/voicePage",
     "pages/index/index",
     "pages/out/out",
     "pages/outDetail/outDetail",
@@ -24,5 +24,6 @@
       "version": "1.0.18",
       "provider": "wx50b5593e81dd937a"
     }
-  }
+  },
+  "requiredBackgroundModes": ["audio", "location"]
 }
