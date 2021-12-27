@@ -26,7 +26,13 @@
                 <view class="des-title">{{locationData.PoiName}}</view>
                 <view class="des-distance">距您{{distance}}</view>
                 <view class='des-content'>
-                    {{locationData.detailDescribe}}
+                    <view wx:if="{{isPlaying}}" class='play' bindtap='end'>
+                        <image src='{{paly}}' />
+                    </view>
+                    <view wx:else class='play' bindtap='wordYun'>
+                        <image src='{{pause}}' />
+                    </view>
+                    <view class='des-text'>{{locationData.detailDescribe}}</view>
                 </view>
             </view>
         </view>

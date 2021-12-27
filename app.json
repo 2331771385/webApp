@@ -1,6 +1,6 @@
 {
   "pages": [
-    "pages/voicePage/voicePage",
+    
     "pages/index/index",
     "pages/out/out",
     "pages/outDetail/outDetail",
@@ -23,6 +23,10 @@
     "routePlan": {
       "version": "1.0.18",
       "provider": "wx50b5593e81dd937a"
+    },
+    "WechatSI": {
+      "version": "0.3.1",
+      "provider": "wx069ba97219f66d99"
     }
   },
   "requiredBackgroundModes": ["audio", "location"]

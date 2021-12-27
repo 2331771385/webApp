@@ -1,4 +1,5 @@
 var QQMapWX = require('../../utils/qqmap-wx-jssdk.min.js');
+const plugin = requirePlugin('WechatSI');
 var qqmapsdk;
 const app = getApp();
 Page({
@@ -65,7 +66,10 @@ Page({
     focus: false,
     placeholder: '留下属于你的精彩评论吧',
     isAnswer: false,
-    currentParent: ''
+    currentParent: '',
+    isPlaying: false,
+    paly: '../../assets/play.png',
+    pause: '../../assets/pause.png',
   },
   onShareAppMessage: function (res) {
     return {
@@ -77,6 +81,13 @@ Page({
     this.dialog = this.selectComponent('#dialog');
   },
   onLoad(options) {
+    this.innerAudioContext = wx.createInnerAudioContext();
+    this.innerAudioContext.onError(function (res) {
+      wx.showToast({
+        title: '语音播放失败',
+        icon: 'none',
+      })
+    }) 
     this.setData({
       pinUrls: []
     });
@@ -165,6 +176,52 @@ Page({
     });   
   },
 
+  // 文字转语音
+  wordYun:function (e) {
+    var that = this;
+    var content = this.data.locationData.detailDescribe;
+    console.log(content);
+    plugin.textToSpeech({
+      lang: "zh_CN",
+      tts: true,
+      content: content,
+      success: function (res) {
+        console.log(res);
+        that.setData({
+          src: res.filename
+        })
+        that.yuyinPlay();
+ 
+      },
+      fail: function (res) {
+        console.log("fail tts", res)
+      }
+    })
+  },
+
+  //播放语音
+  yuyinPlay: function (e) {
+    let isPlay = this.data.isPlaying;
+    if (this.data.src == '') {
+      return;
+    }
+    this.innerAudioContext.src = this.data.src //设置音频地址
+    this.innerAudioContext.play(); //播放音频
+    this.setData({
+      isPlaying: !isPlay
+    })
+  },
+ 
+  // 结束语音
+  end: function (e) {
+    console.log('=======');
+    this.innerAudioContext.pause();//暂停音频
+    let isPlay = this.data.isPlaying;
+    this.setData({
+      isPlaying: !isPlay
+    })
+  },
+
 
   // 获得位置点留言信息
   getTalkList(campusId, poiId) {
@@ -197,7 +254,8 @@ Page({
   setChatListHeight() {
     this.setData({
       chatListHeight: app.globalData.sysHeight - app.globalData.statsuBarHeight - this.data.headHeight - this.data.keyboardHeight- this.data.inutPanelHeight
-    })
+    });
+    console.log(this.data.chatListHeight);
   },
   hideKeyboard(){
     wx.hideKeyboard();
