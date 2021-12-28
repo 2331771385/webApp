@@ -93,6 +93,10 @@ Page({
     });
     let self = this;
     let data = JSON.parse(options.current);
+
+    // 进行建筑的统计
+    this.getBuildData(data);
+
     this.getTalkList(data.campusID, data.PoiID);
 
     let syncData = wx.getStorageSync('jobData');
@@ -174,6 +178,34 @@ Page({
       indicatorDots: true,
       bottomOpt: bottomOpt
     });   
+  },
+
+  getBuildData(currentBuild) {
+    let pages = getCurrentPages()    //获取加载的页面
+    let currentPage = pages[pages.length-1]    //获取当前页面的对象
+    let url = currentPage.route    //当前页面url
+    wx.request({
+      url: 'http://192.168.0.109:8081/TbVisiLog/save',
+      data: {
+        visiType: 3,
+        urlContent: url,
+        campusId: currentBuild.campusID,
+        poiId: currentBuild.PoiID,
+        campuName: '',
+        poiName: currentBuild.PoiName
+      },
+      header: {'content-type':'application/json'},
+      method: 'POST',
+      dataType: 'json',
+      responseType: 'text',
+      success: (result)=>{
+        console.log('获取成功');
+        console.log(result);
+      },
+      fail: ()=>{
+        console.log('获取失败');
+      }
+    });
   },
 
   // 文字转语音

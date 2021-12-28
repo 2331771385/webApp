@@ -83,13 +83,6 @@ Page({
       currentPageUrl: url
     });
 
-    let params = {
-      visiType: 1,
-      urlContent: url,
-      campusId: 0,
-      poiId: 0
-    }
-    console.log(params);
     wx.request({
       url: 'http://192.168.0.109:8081/TbVisiLog/save',
       data: {
@@ -105,6 +98,7 @@ Page({
       dataType: 'json',
       responseType: 'text',
       success: (result)=>{
+        console.log('===========');
         console.log(result);
       },
       fail: ()=>{
