@@ -66,11 +66,51 @@ Page({
         label: '青岛校区',
         value: 'http://116.62.20.146:7788/img/pic-qingdao.jpg'
       }
-    ]
+    ],
+    currentPageUrl: ''
   },
 
   onLoad() {
+    this.getSystemData(); // 获取统计数据
     this.getToken();
+  },
+
+  getSystemData() {
+    let pages = getCurrentPages()    //获取加载的页面
+    let currentPage = pages[pages.length-1]    //获取当前页面的对象
+    let url = currentPage.route    //当前页面url
+    this.setData({
+      currentPageUrl: url
+    });
+
+    let params = {
+      visiType: 1,
+      urlContent: url,
+      campusId: 0,
+      poiId: 0
+    }
+    console.log(params);
+    wx.request({
+      url: 'http://192.168.0.109:8081/TbVisiLog/save',
+      data: {
+        visiType: 1,
+        urlContent: url,
+        campusId: 0,
+        poiId: 0,
+        campuName: '',
+        poiName: ''
+      },
+      header: {'content-type':'application/json'},
+      method: 'POST',
+      dataType: 'json',
+      responseType: 'text',
+      success: (result)=>{
+        console.log(result);
+      },
+      fail: ()=>{
+        console.log('获取失败');
+      }
+    });
   },
 
   /**
