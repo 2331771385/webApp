@@ -70,6 +70,40 @@ Page({
     isPlaying: false,
     paly: '../../assets/play.png',
     pause: '../../assets/pause.png',
+    campusList: [
+      {
+        id: 1,
+        value: '中心校区'
+      },
+      {
+        id: 2,
+        value: '洪家楼校区'
+      },
+      {
+        id: 3,
+        value: '千佛山校区'
+      },
+      {
+        id: 4,
+        value: '趵突泉校区'
+      },
+      {
+        id: 5,
+        value: '兴隆山校区'
+      },
+      {
+        id: 6,
+        value: '软件园校区'
+      },
+      {
+        id: 7,
+        value: '威海校区'
+      },
+      {
+        id: 8,
+        value: '青岛校区'
+      }
+    ]
   },
   onShareAppMessage: function (res) {
     return {
@@ -184,14 +218,29 @@ Page({
     let pages = getCurrentPages()    //获取加载的页面
     let currentPage = pages[pages.length-1]    //获取当前页面的对象
     let url = currentPage.route    //当前页面url
+    let Poitype = currentBuild.PoiType;
+    let campusName = '';
+    for(let i=0; i<this.data.campusList.length; i++) {
+      if (this.data.campusList[i].id == currentBuild.campusID) {
+        campusName = this.data.campusList[i].value;
+      }
+    }
+    let visiType;
+    if (Poitype == 1) {
+      visiType = 3;
+    } else if (Poitype == 2) {
+      visiType = 4;
+    } else if (Poitype == 5) {
+      visiType = 5
+    }
     wx.request({
       url: 'http://192.168.0.109:8081/TbVisiLog/save',
       data: {
-        visiType: 3,
+        visiType: visiType,
         urlContent: url,
         campusId: currentBuild.campusID,
         poiId: currentBuild.PoiID,
-        campuName: '',
+        campusName: campusName,
         poiName: currentBuild.PoiName
       },
       header: {'content-type':'application/json'},
@@ -199,7 +248,6 @@ Page({
       dataType: 'json',
       responseType: 'text',
       success: (result)=>{
-        console.log('获取成功');
         console.log(result);
       },
       fail: ()=>{
@@ -212,13 +260,11 @@ Page({
   wordYun:function (e) {
     var that = this;
     var content = this.data.locationData.detailDescribe;
-    console.log(content);
     plugin.textToSpeech({
       lang: "zh_CN",
       tts: true,
       content: content,
       success: function (res) {
-        console.log(res);
         that.setData({
           src: res.filename
         })
@@ -246,7 +292,6 @@ Page({
  
   // 结束语音
   end: function (e) {
-    console.log('=======');
     this.innerAudioContext.pause();//暂停音频
     let isPlay = this.data.isPlaying;
     this.setData({
@@ -287,7 +332,6 @@ Page({
     this.setData({
       chatListHeight: app.globalData.sysHeight - app.globalData.statsuBarHeight - this.data.headHeight - this.data.keyboardHeight- this.data.inutPanelHeight
     });
-    console.log(this.data.chatListHeight);
   },
   hideKeyboard(){
     wx.hideKeyboard();
