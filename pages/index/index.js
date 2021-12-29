@@ -98,7 +98,6 @@ Page({
       dataType: 'json',
       responseType: 'text',
       success: (result)=>{
-        console.log('===========');
         console.log(result);
       },
       fail: ()=>{
