@@ -73,7 +73,8 @@
     height: 320rpx;
     width: 700rpx;
     position: absolute;
-    bottom: 150rpx;
+    top: 270rpx;
+    /* bottom: 150rpx; */
     transform: translateX(-50%);
     left: 50%;
 }

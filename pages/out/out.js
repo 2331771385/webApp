@@ -11,7 +11,6 @@ Page({
     this.setData({
       campusId: campusId,
       campusName: campusName,
-      // url:`http://localhost:8081/ttt.html?campusId=${campusId}&campusName=${campusName}`
       url: `http://116.62.20.146:7788/makeMap/ttt.html?campusId=${campusId}&campusName=${campusName}`
     });
 
@@ -27,19 +26,19 @@ Page({
       campusName: campusName,
       poiName: ''
     }
-    wx.request({
-      url: 'http://192.168.0.109:8081/TbVisiLog/save',
-      data: data,
-      header: {'content-type':'application/json'},
-      method: 'POST',
-      dataType: 'json',
-      responseType: 'text',
-      success: (result)=>{
-        console.log(result);
-      },
-      fail: ()=>{
-        console.log('获取失败');
-      }
-    });
+    // wx.request({
+    //   url: 'http://192.168.0.109:8081/TbVisiLog/save',
+    //   data: data,
+    //   header: {'content-type':'application/json'},
+    //   method: 'POST',
+    //   dataType: 'json',
+    //   responseType: 'text',
+    //   success: (result)=>{
+    //     console.log(result);
+    //   },
+    //   fail: ()=>{
+    //     console.log('获取失败');
+    //   }
+    // });
   },
 })

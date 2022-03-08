@@ -83,27 +83,27 @@ Page({
       currentPageUrl: url
     });
 
-    wx.request({
-      url: 'http://192.168.0.109:8081/TbVisiLog/save',
-      data: {
-        visiType: 1,
-        urlContent: url,
-        campusId: 0,
-        poiId: 0,
-        campuName: '',
-        poiName: ''
-      },
-      header: {'content-type':'application/json'},
-      method: 'POST',
-      dataType: 'json',
-      responseType: 'text',
-      success: (result)=>{
-        console.log(result);
-      },
-      fail: ()=>{
-        console.log('获取失败');
-      }
-    });
+    // wx.request({
+    //   url: 'http://192.168.0.109:8081/TbVisiLog/save',
+    //   data: {
+    //     visiType: 1,
+    //     urlContent: url,
+    //     campusId: 0,
+    //     poiId: 0,
+    //     campuName: '',
+    //     poiName: ''
+    //   },
+    //   header: {'content-type':'application/json'},
+    //   method: 'POST',
+    //   dataType: 'json',
+    //   responseType: 'text',
+    //   success: (result)=>{
+    //     console.log(result);
+    //   },
+    //   fail: ()=>{
+    //     console.log('获取失败');
+    //   }
+    // });
   },
 
   /**

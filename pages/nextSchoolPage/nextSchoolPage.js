@@ -3,7 +3,7 @@ Page({
   data: {
     campusId: null,
     campusName: '',
-    selectedPic: 'http://116.62.20.146:7788/img/main_bg.jpg', //页面跳转的连接，包含参数的拼接
+    selectedPic: 'http://116.62.20.146:7788/img/main_bg_g.jpg', //页面跳转的连接，包含参数的拼接
     backIcon: 'http://116.62.20.146:7788/img/left.png',
     mainText: 'http://116.62.20.146:7788/img/main2.png',
     point: 'http://116.62.20.146:7788/img/point.png',
@@ -42,7 +42,7 @@ Page({
       }
     ],
     selectedPicTitle: '',
-    firstNotice: '1.低风险地区需提供绿色健康码，中高风险地区需提供7日核酸检测阴性证明。并遵守属地相关管理约定。',
+    firstNotice: '1.低风险地区需提供绿色健康码，中高风险地区需提供7日核酸检测阴性证明。',
     secondNotice: '2.新生报到时需携带的材料：',
     secondText: '录取通知书、高考准考证、有效身份证件',
     secondText1: '、一寸正面免冠彩色照片8张、考生档案、党团组织关系介绍信。',

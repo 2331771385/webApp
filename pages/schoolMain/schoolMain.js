@@ -3,7 +3,7 @@ Page({
   data: {
     campusId: null,
     campusName: '',
-    selectedPic: 'http://116.62.20.146:7788/img/main_bg.jpg', //页面跳转的连接，包含参数的拼接
+    selectedPic: 'http://116.62.20.146:7788/img/main_bg_g.jpg', //页面跳转的连接，包含参数的拼接
     backIcon: 'http://116.62.20.146:7788/img/left.png',
     mainText: 'http://116.62.20.146:7788/img/2.png',
     point: 'http://116.62.20.146:7788/img/point.png',

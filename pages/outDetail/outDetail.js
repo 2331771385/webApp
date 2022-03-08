@@ -233,27 +233,27 @@ Page({
     } else if (Poitype == 5) {
       visiType = 5
     }
-    wx.request({
-      url: 'http://192.168.0.109:8081/TbVisiLog/save',
-      data: {
-        visiType: visiType,
-        urlContent: url,
-        campusId: currentBuild.campusID,
-        poiId: currentBuild.PoiID,
-        campusName: campusName,
-        poiName: currentBuild.PoiName
-      },
-      header: {'content-type':'application/json'},
-      method: 'POST',
-      dataType: 'json',
-      responseType: 'text',
-      success: (result)=>{
-        console.log(result);
-      },
-      fail: ()=>{
-        console.log('获取失败');
-      }
-    });
+    // wx.request({
+    //   url: 'http://192.168.0.109:8081/TbVisiLog/save',
+    //   data: {
+    //     visiType: visiType,
+    //     urlContent: url,
+    //     campusId: currentBuild.campusID,
+    //     poiId: currentBuild.PoiID,
+    //     campusName: campusName,
+    //     poiName: currentBuild.PoiName
+    //   },
+    //   header: {'content-type':'application/json'},
+    //   method: 'POST',
+    //   dataType: 'json',
+    //   responseType: 'text',
+    //   success: (result)=>{
+    //     console.log(result);
+    //   },
+    //   fail: ()=>{
+    //     console.log('获取失败');
+    //   }
+    // });
   },
 
   // 文字转语音

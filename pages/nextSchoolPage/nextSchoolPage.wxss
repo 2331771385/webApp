@@ -70,10 +70,10 @@
 }
 
 .mainBox {
-    height: 600rpx;
+    height: 650rpx;
     width: 700rpx;
     position: absolute;
-    bottom: 150rpx;
+    top: 270rpx;
     transform: translateX(-50%);
     left: 50%;
 }
@@ -84,7 +84,8 @@
 .textTitle {
     height: 80rpx;
     position: absolute;
-    bottom: 460rpx;
+    top: 60rpx;
+    /* bottom: 460rpx; */
     left: 40rpx;
 }
 .textTitle image {
