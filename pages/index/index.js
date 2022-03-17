@@ -72,7 +72,6 @@ Page({
 
   onLoad() {
     this.getSystemData(); // 获取统计数据
-    this.getToken();
   },
 
   getSystemData() {
@@ -106,27 +105,6 @@ Page({
     // });
   },
 
-  /**
-   * 获得页面中的token
-   */
-  getToken() {
-    wx.request({
-      url: 'https://map.sdu.edu.cn/campus/m_generateToken',
-      data: {},
-      header: {'content-type':'application/json'},
-      method: 'POST',
-      dataType: 'json',
-      responseType: 'text',
-      success: (result)=>{
-        // 请求成功的token
-        if (result.data) {
-          app.globalData.token = result.data.msg;
-        }
-      },
-      fail: ()=>{},
-      complete: ()=>{}
-    });
-  },
   goToSDU() {
     wx.navigateTo({
       url: '/pages/copyAndDetail/copyAndDetail?opt=copyPage'

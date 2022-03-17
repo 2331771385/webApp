@@ -1,5 +1,6 @@
 var QQMapWX = require('../../utils/qqmap-wx-jssdk.min.js');
 const plugin = requirePlugin('WechatSI');
+const utils = require('../../utils/util');
 var qqmapsdk;
 const app = getApp();
 Page({
@@ -126,16 +127,18 @@ Page({
       pinUrls: []
     });
     let self = this;
+    
     let data = JSON.parse(options.current);
+    
 
     // 进行建筑的统计
     this.getBuildData(data);
 
-    this.getTalkList(data.campusID, data.PoiID);
+    this.getTalkList(data.campusid, data.poiid);
 
     let syncData = wx.getStorageSync('jobData');
     for(let i = 0; i < syncData.length; i++) {
-      if (syncData[i].content.PoiID == data.PoiID) {
+      if (syncData[i].content.poiid == data.poiid) {
         self.setData({
           isClick: true,
           'bottomOpt[1].optName': '已收藏',
@@ -146,15 +149,15 @@ Page({
     }
 
     let pinUrls = this.data.pinUrls;
-    let dataPinUrls = data.picUrls.split(';');
+    let dataPinUrls = data.picurls.split(';');
     for(var i = 0; i < dataPinUrls.length; i++) {
-      let pic = `https://map.sdu.edu.cn${dataPinUrls[i]}`;
+      let pic = `http://116.62.20.146:8081${dataPinUrls[i]}`;
       pinUrls.push(pic);
     }
 
     // 控制实景的显示与隐藏
     let bottomOpt = this.data.bottomOpt;
-    if (!data.pic720Url) {
+    if (!data.pic720url) {
       bottomOpt[3].showPicture = false;
     } else {
       bottomOpt[3].showPicture = true;
@@ -259,7 +262,7 @@ Page({
   // 文字转语音
   wordYun:function (e) {
     var that = this;
-    var content = this.data.locationData.detailDescribe;
+    var content = this.data.locationData.detaildescribe;
     plugin.textToSpeech({
       lang: "zh_CN",
       tts: true,
@@ -303,10 +306,12 @@ Page({
   // 获得位置点留言信息
   getTalkList(campusId, poiId) {
     wx.request({
-      url: 'http://116.62.20.146:9800/xydt_sys/getTalkList',
+      url: 'http://116.62.20.146:8081/TbTalkContent/content/list1',
       data: {
-        campusID: campusId,
-        poiID: poiId
+        campusId: campusId,
+        parentId: poiId,
+        pageNum: 1,
+        pageSize: 10000,
       },
       header: {
         'content-type':'application/json'
@@ -314,11 +319,11 @@ Page({
       method: 'GET',
       success: (result)=>{
         console.log(result.data);
-        if (result.data.length) {
+        if (result.data.rows.length) {
           this.setData({
-            msgList1: result.data
+            msgList1: result.data.rows
           });
-          app.globalData.msgList = result.data;
+          app.globalData.msgList = result.data.rows;
         }
       },
       fail: (err)=>{
@@ -347,6 +352,8 @@ Page({
   send() {
     let curMessage = this.data.curMessage;
     let currentData = this.data.locationData;
+    console.log('这是发送请求的留言');
+    console.log(currentData);
     let self = this;
     if (curMessage.trim() === "") {
       wx.showToast({
@@ -359,10 +366,10 @@ Page({
     let messageList = this.data.msgList1;
     let currentUser = app.globalData.userInfo;
     wx.request({
-      url: 'http://116.62.20.146:9800/xydt_sys/saveTalk',
+      url: 'http://116.62.20.146:8081/TbTalkContent/content',
       data: {
-        campusID: currentData.campusID,
-        poiID: currentData.PoiID,
+        campusId: currentData.campusID,
+        poiId: currentData.PoiID,
         parentId: this.data.currentParent || currentData.PoiID,
         msgImg: currentUser.avatarUrl,
         msgName: currentUser.nickName,
@@ -373,6 +380,8 @@ Page({
       },
       method: 'POST',
       success: (result)=>{
+        console.log('-------');
+        console.log(result);
         wx.showToast({
           title: '添加成功',
           success: function () {
@@ -488,6 +497,7 @@ Page({
   // 收藏功能
   haveSave(e) {
     if (!this.data.isClick == true) {
+      console.log(app.globalData);
       let jobData = app.globalData.jobList;
       // let jobData = wx.getStorageSync('jobData');
       jobData.push({
@@ -528,13 +538,12 @@ Page({
 
   // 路径规划页面
   getPlanRouter() {
-    let endPoint = this.data.locationData.PoiName;
+    console.log(this.data.locationData);
+    let endPoint = this.data.locationData.poiname;
     let lat = this.data.locationData.latitude;
     let lng = this.data.locationData.longitude;
     wx.navigateTo({
       url: `/pages/goRouter/goRouter?endPoint=${endPoint}&lat=${lat}&lng=${lng}`
-
-      // url: `/pages/planRouter/planRouter?endPoint=${endPoint}&lat=${lat}&lng=${lng}`
     })
   },
 

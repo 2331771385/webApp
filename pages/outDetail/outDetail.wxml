@@ -5,7 +5,7 @@
             <image class="backImg" src="{{backIcon}}" bindtap="gotoBack"> 
             </image>
         </view>
-        <view class="header-title">{{locationData.PoiName}}</view>
+        <view class="header-title">{{locationData.poiname}}</view>
     </view>
     <view class='content' >
         <view class="content-imgs" bindtap="hideInput">
@@ -23,7 +23,7 @@
                 </swiper>
             </view>
             <view class="content-des">
-                <view class="des-title">{{locationData.PoiName}}</view>
+                <view class="des-title">{{locationData.poiname}}</view>
                 <view class="des-distance">距您{{distance}}</view>
                 <view class='des-content'>
                     <view wx:if="{{isPlaying}}" class='play' bindtap='end'>
@@ -32,7 +32,7 @@
                     <view wx:else class='play' bindtap='wordYun'>
                         <image src='{{pause}}' />
                     </view>
-                    <view class='des-text'>{{locationData.detailDescribe}}</view>
+                    <view class='des-text'>{{locationData.detaildescribe}}</view>
                 </view>
             </view>
         </view>

@@ -18,8 +18,8 @@ Page({
         title: '加载中'
       });
       for(let i = 0; i < savejob.length; i++) {
-        let pic = savejob[i].content.picUrls.split(';')[0];
-        pic = `https://map.sdu.edu.cn${pic}`;
+        let pic = savejob[i].content.picurls.split(';')[0];
+        pic = `http://116.62.20.146:8081${pic}`;
         savejob[i].pic = pic;
 
         //定位

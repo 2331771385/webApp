@@ -14,13 +14,13 @@
             </view>
             <view class='items-right'>
                 <view class="items-right-title">
-                    <text>{{item.content.PoiName}}</text>
+                    <text>{{item.content.poiname}}</text>
                 </view>
                 <view class='items-right-distance'>
                     <text>距您{{item.distance}}</text>
                 </view>
                 <view class='items-right-des'>
-                    <text>{{item.content.shortDescribe}}</text>
+                    <text>{{item.content.shortdescribe}}</text>
                 </view>
             </view>
         </view>

@@ -28,7 +28,6 @@ App({
     jobList: wx.getStorageSync('jobData') || [],
     userInfo: null,  // 获取微信登录者的用户名和头像
     msgList: [],
-
     statsuBarHeight:0,
     sysWidth:0,
     sysHeight:0,
