@@ -354,6 +354,7 @@ Page({
     let currentData = this.data.locationData;
     console.log('这是发送请求的留言');
     console.log(currentData);
+    console.log(this.data.locationData);
     let self = this;
     if (curMessage.trim() === "") {
       wx.showToast({
@@ -366,11 +367,11 @@ Page({
     let messageList = this.data.msgList1;
     let currentUser = app.globalData.userInfo;
     wx.request({
-      url: 'http://116.62.20.146:8081/TbTalkContent/content',
+      url: 'http://116.62.20.146:8081/TbTalkContent/content/save',
       data: {
-        campusId: currentData.campusID,
-        poiId: currentData.PoiID,
-        parentId: this.data.currentParent || currentData.PoiID,
+        campusId: currentData.campusid,
+        poiId: currentData.poiid,
+        parentId: this.data.currentParent || currentData.poiid,
         msgImg: currentUser.avatarUrl,
         msgName: currentUser.nickName,
         msgDes: curMessage
@@ -380,15 +381,13 @@ Page({
       },
       method: 'POST',
       success: (result)=>{
-        console.log('-------');
-        console.log(result);
         wx.showToast({
           title: '添加成功',
           success: function () {
             self.setData({
               focus: false
             })
-            self.getTalkList(currentData.campusID, currentData.PoiID)
+            self.getTalkList(currentData.campusid, currentData.poiid)
           }
         });
       },
