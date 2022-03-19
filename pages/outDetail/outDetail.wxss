@@ -146,7 +146,7 @@
     height: 20%;
     font-size: 0.8rem;
     margin-top: 10rpx;
-    max-width: 40%;
+    max-width: 60%;
 }
 .msg-answer {
     margin-top: 10rpx;

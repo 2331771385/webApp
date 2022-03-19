@@ -352,9 +352,6 @@ Page({
   send() {
     let curMessage = this.data.curMessage;
     let currentData = this.data.locationData;
-    console.log('这是发送请求的留言');
-    console.log(currentData);
-    console.log(this.data.locationData);
     let self = this;
     if (curMessage.trim() === "") {
       wx.showToast({
@@ -387,6 +384,7 @@ Page({
             self.setData({
               focus: false
             })
+            // self.onLoad()
             self.getTalkList(currentData.campusid, currentData.poiid)
           }
         });
@@ -444,9 +442,10 @@ Page({
 
   // 跳转到所有的留言界面
   gotoAllMsg() {
-    let poiName = this.data.locationData.PoiName;
-    let campusId = this.data.locationData.campusID;
-    let poiId = this.data.locationData.PoiID;
+    console.log(this.data.locationData);
+    let poiName = this.data.locationData.poiname;
+    let campusId = this.data.locationData.campusid;
+    let poiId = this.data.locationData.poiid;
     wx.navigateTo({
       url: `/pages/allMsgPage/allMsgPage?poiName=${poiName}&campusId=${campusId}&poiId=${poiId}`
     })
@@ -496,9 +495,7 @@ Page({
   // 收藏功能
   haveSave(e) {
     if (!this.data.isClick == true) {
-      console.log(app.globalData);
       let jobData = app.globalData.jobList;
-      // let jobData = wx.getStorageSync('jobData');
       jobData.push({
         jobId: jobData.length,
         id: this.data.job.id,
@@ -514,7 +511,7 @@ Page({
       });
       let data = wx.getStorageSync('jobData');
       for(let i = 0; i < data.length; i++) {
-        if (data[i].content.PoiID == this.data.locationData.PoiID) {
+        if (data[i].content.poiid == this.data.locationData.poiid) {
           data.splice(i,1);
         }
       }
@@ -537,7 +534,6 @@ Page({
 
   // 路径规划页面
   getPlanRouter() {
-    console.log(this.data.locationData);
     let endPoint = this.data.locationData.poiname;
     let lat = this.data.locationData.latitude;
     let lng = this.data.locationData.longitude;

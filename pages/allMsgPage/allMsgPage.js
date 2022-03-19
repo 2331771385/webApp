@@ -31,7 +31,7 @@ Page({
       poiName: options.poiName,
       msgList: app.globalData.msgList
     });
-    // this.getTalkList(options.campusId, options.poiId);
+    this.getTalkList(options.campusId, options.poiId);
     this.setChatListHeight();
     wx.onKeyboardHeightChange(res => { //监听键盘高度变化
       this.setData({
@@ -45,10 +45,12 @@ Page({
   // 获得位置点留言信息
   getTalkList(campusId, poiId) {
     wx.request({
-      url: 'http://116.62.20.146:9800/xydt_sys/getTalkList',
+      url: 'http://116.62.20.146:8081/TbTalkContent/content/list1',
       data: {
-        campusID: campusId,
-        poiID: poiId
+        campusId: campusId,
+        parentId: poiId,
+        pageNum: 1,
+        pageSize: 10000,
       },
       header: {
         'content-type':'application/json'
@@ -118,10 +120,10 @@ Page({
     let messageList = this.data.msgList;
     let currentUser = app.globalData.userInfo;
     wx.request({
-      url: 'http://116.62.20.146:9800/xydt_sys/saveTalk',
+      url: 'http://116.62.20.146:8081/TbTalkContent/content/save',
       data: {
-        campusID: this.data.campusId,
-        poiID: this.data.poiId,
+        campusId: this.data.campusId,
+        poiId: this.data.poiId,
         parentId: this.data.currentParent || this.data.poiId,
         msgImg: currentUser.avatarUrl,
         msgName: currentUser.nickName,
@@ -138,7 +140,7 @@ Page({
             self.setData({
               focus: false
             })
-            self.getTalkList(this.data.campusId, this.data.poiId)
+            self.getTalkList(self.data.campusId, self.data.poiId)
           }
         });
       },
